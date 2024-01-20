@@ -1,0 +1,1 @@
+export { useServiceStore } from "./service";
