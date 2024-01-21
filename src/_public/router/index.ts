@@ -7,7 +7,7 @@ export const PUBLIC_ROUTES: RouteRecordRaw[] = [
     {
         path: '/',
         name: 'Home',
-        component: HomeView,
+        component: SpotMap,
         meta: { navbar: true}
       },
       {
