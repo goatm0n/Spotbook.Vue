@@ -1,7 +1,17 @@
-import { ACCOUNTS_API_URL, PROFILES_API_URL, SPOTS_API_URL } from "./APIRouteManager";
+import { ACCOUNTS_API_URL, PROFILES_API_URL, SPOTBOOK_API_URL, SPOTS_API_URL } from "./APIRouteManager";
 import APIClient from "./APIClient"
 import type { AccountUpdateInterface, IAccountCreate } from "@/dto/Account";
 import { type ProfileInterface } from "@/dto/Profile";
+
+function getAxiosConfig() {
+    const authToken: string = String('Bearer ').concat(sessionStorage.getItem('access') as string)
+    const axiosConfig = {
+        headers: {
+            'Authorization': authToken,
+        },
+    }
+    return axiosConfig
+}
 
 async function getAccountDetail(id: number) {
     const route = ACCOUNTS_API_URL + "/detail/" + id;
@@ -58,6 +68,22 @@ async function getSpots() {
     return await APIClient.apiGet(route);
 }
 
+async function getUsername(userId:number) {
+    const route = ACCOUNTS_API_URL + '/username/' + userId;
+    return await APIClient.apiGet(route);
+}
+
+async function createSpot(spot: any) {
+    const route = SPOTS_API_URL + '/create/';
+    const axiosConfig = getAxiosConfig();
+    return await APIClient.apiPost(route, spot, axiosConfig);
+}
+
+async function getToken(payload: any) {
+    const route = SPOTBOOK_API_URL + '/users/token/';
+    return await APIClient.apiPost(route, payload);
+}
+
 export default {
     getAccountDetail,
     createAccount,
@@ -70,4 +96,7 @@ export default {
     getSpot,
     getSpotFollowers,
     getSpots,
+    getUsername,
+    createSpot,
+    getToken,
 }

@@ -5,3 +5,6 @@ export { default as AccountList } from "./AccountList.vue";
 export { default as ProfileList } from "./ProfileList.vue";
 export { default as ProfileDetail } from "./ProfileDetail.vue";
 export { default as SBDetail } from "./SBDetail.vue";
+export { default as SpotMap } from "./SpotMap.vue";
+export { default as SpotDetail } from "./SpotDetail.vue";
+export { default as LoginForm } from "./LoginForm.vue";

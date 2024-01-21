@@ -5,6 +5,7 @@ import { apimanager } from '@/api';
 
 export const useServiceStore = defineStore('service', () => {
   const AccountDTO: Ref<AccountDTO> = ref(DEFAULT_ACCOUNT);
+  const latLng = ref();
 
   function setAccount(account: AccountDTO): void{
     AccountDTO.value = account;
@@ -59,8 +60,30 @@ export const useServiceStore = defineStore('service', () => {
     return res.data.features;
   }
 
+  async function getSpotsByIds(spotIds: number[]): Promise<SpotInterface[]> {
+    throw new Error("Not Implemented")
+  }
+
+  async function getUsername(userId:number): Promise<string> {
+    const res = await apimanager.getUsername(userId);
+    return res.data;
+  }
+
+  async function createSpot(spot: any) {
+    return await apimanager.createSpot(spot);
+  }
+
+  async function login(payload: any) {
+    const res = await apimanager.getToken(payload);
+    if (res.status == 200) {
+      sessionStorage.setItem('access', res.data.access);
+      sessionStorage.setItem('refresh', res.data.refresh)
+    }
+  }
+
   return { 
     AccountDTO, 
+    latLng,
     setAccountDTOById, 
     setAccount, 
     getAccounts,
@@ -71,5 +94,9 @@ export const useServiceStore = defineStore('service', () => {
     getSpot,
     getSpotFollowers,
     getSpots,
+    getSpotsByIds,
+    getUsername,
+    createSpot,
+    login,
   }
 })
