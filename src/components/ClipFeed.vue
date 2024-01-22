@@ -1,13 +1,14 @@
 <template>
-    <Clip v-for="clip in clips" />
+    <Clip v-for="clip in clips" :clip="clip"/>
 </template>
 
 <script setup lang="ts">
 import { useServiceStore } from '@/stores';
-import { ref } from 'vue';
+import { ref, type Ref } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { Clip } from '@/components';
+import type { ClipInterface } from '@/dto';
 
 const serviceStore = useServiceStore();
 
@@ -18,7 +19,7 @@ interface Props {
 }
 const props = defineProps<Props>();
 
-const clips = ref([]);
+const clips: Ref<ClipInterface[]> = ref([]);
 
 async function init() {
     if (props.mode === 'Spot' && props.spotId) {

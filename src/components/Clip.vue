@@ -44,7 +44,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { type ClipInterface } from "@/dto";
 
 interface Props {
-    modelValue: ClipInterface,
+    clip: ClipInterface,
 }
 const props = defineProps<Props>();
 </script>
