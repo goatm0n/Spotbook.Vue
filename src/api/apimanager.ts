@@ -1,7 +1,7 @@
-import { ACCOUNTS_API_URL, PROFILES_API_URL, SPOTBOOK_API_URL, SPOTS_API_URL } from "./APIRouteManager";
+import { ACCOUNTS_API_URL, CLIPS_API_URL, PROFILES_API_URL, SPOTBOOK_API_URL, SPOTS_API_URL } from "./APIRouteManager";
 import APIClient from "./APIClient"
 import type { AccountUpdateInterface, IAccountCreate } from "@/dto/Account";
-import { type ProfileInterface } from "@/dto/Profile";
+import { DEFAULT_PROFILE, type ProfileInterface } from "@/dto/Profile";
 
 function getAxiosConfig() {
     const authToken: string = String('Bearer ').concat(sessionStorage.getItem('access') as string)
@@ -79,6 +79,25 @@ async function createSpot(spot: any) {
     return await APIClient.apiPost(route, spot, axiosConfig);
 }
 
+async function getClip(clipId: number) {
+    const route = CLIPS_API_URL + `/detail/${clipId}`;
+    return await APIClient.apiGet(route);
+}
+
+async function getSpotClips(spotId: number) {
+    const route = CLIPS_API_URL + `/list-spot/${spotId}/`;
+    return await APIClient.apiGet(route);
+}
+
+async function getProfilesByIds(idArray: number[]): Promise<ProfileInterface[]> {
+    throw new Error("Not Implemented");
+}
+
+async function getSpotLikes(spotId: number) {
+    const route = SPOTS_API_URL + `/likes/${spotId}/`;
+    return await APIClient.apiGet(route);
+}
+
 async function getToken(payload: any) {
     const route = SPOTBOOK_API_URL + '/users/token/';
     return await APIClient.apiPost(route, payload);
@@ -98,5 +117,9 @@ export default {
     getSpots,
     getUsername,
     createSpot,
+    getClip,
+    getSpotClips,
+    getProfilesByIds,
+    getSpotLikes,
     getToken,
 }

@@ -1,21 +1,16 @@
 <template>
     <div style="margin: auto; text-align: center;">
         <div v-if="loading"><h2>LOADING</h2></div>
-        <SBDetail v-if="!loading" :data="spot.properties"/>
-        <br>
-        <RouterLink 
-            :to="{name: 'Spot Followers', params: { spotId: spotId }}" 
-            class="btn btn-success"
-        >
-            Followers
+        <div v-if="!loading">
+            <SpotDetail :spot="spot" />
             <br>
-            {{ spot.properties.followers.length }}
-        </RouterLink>
+            <ClipFeed mode="Spot" :spotId="spot.id" />
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { SBDetail } from '@/components';
+import { SBDetail, FollowersButton, ClipFeed, SpotDetail } from '@/components';
 import { ref, type Ref } from 'vue';
 import { DEFAULT_SPOT, type SpotInterface } from '@/dto';
 import { useServiceStore } from '@/stores';

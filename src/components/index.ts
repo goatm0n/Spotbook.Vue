@@ -8,3 +8,8 @@ export { default as SBDetail } from "./SBDetail.vue";
 export { default as SpotMap } from "./SpotMap.vue";
 export { default as SpotDetail } from "./SpotDetail.vue";
 export { default as LoginForm } from "./LoginForm.vue";
+export { default as Clip } from "./Clip.vue";
+export { default as FollowersButton } from './FollowersButton.vue';
+export { default as ClipFeed } from "./ClipFeed.vue";
+export { default as LikesButton } from "./LikesButton.vue";
+export { default as Likes } from "./Likes.vue";

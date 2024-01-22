@@ -10,21 +10,14 @@
             >
                 <span>Update</span>
             </button>
-            <RouterLink 
-                :to="{name: 'Profile Followers', params: {userId: profile.user}}" 
-                class="btn btn-success"
-            >
-                <span>Followers</span>
-                <br>
-                <span>{{ followCount }}</span>
-            </RouterLink> 
+            <FollowersButton mode="Profile" :count="followCount" :userId="profile.user" />
         </div>    
     </div>
 </template>
 
 <script setup lang="ts">
 import { DEFAULT_PROFILE, type ProfileInterface, EProfileDetailMode } from '@/dto';
-import { SBDetail } from "@/components";
+import { FollowersButton, SBDetail } from "@/components";
 import { useServiceStore } from '@/stores';
 import { ref, toRef, type Ref, computed } from 'vue';
 import { string, object } from 'yup';

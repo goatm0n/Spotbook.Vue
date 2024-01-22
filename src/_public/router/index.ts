@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from "vue-router";
 import { HomeView } from "../views";
-import { AccountDetail, ProfileDetail, SpotMap, SpotDetail, LoginForm } from "@/components";
-import { Accounts, Followers, Profiles, Spot, Spots, CreateSpot } from "@/views";
+import { AccountDetail, ProfileDetail, SpotMap, SpotDetail, LoginForm, } from "@/components";
+import { Accounts, Followers, Profiles, Spot, Spots, CreateSpot, ClipView, SpotLikes } from "@/views";
 
 export const PUBLIC_ROUTES: RouteRecordRaw[] = [
     {
@@ -60,7 +60,7 @@ export const PUBLIC_ROUTES: RouteRecordRaw[] = [
       {
         name: "Spot",
         path: "/spot/:spotId",
-        component: SpotDetail,
+        component: Spot,
         props: true,
       },
       {
@@ -83,6 +83,18 @@ export const PUBLIC_ROUTES: RouteRecordRaw[] = [
         name: 'Create Spot',
         path: '/createspot/:lat/:lng',
         component: CreateSpot,
+        props: true,
+      },
+      {
+        name: 'Clip',
+        path: '/clip/:clipId',
+        component: ClipView,
+        props: true,
+      },
+      {
+        name: 'Spot Likes',
+        path: '/spotlikes/:spotId',
+        component: SpotLikes,
         props: true,
       },
       {

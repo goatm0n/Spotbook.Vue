@@ -2,16 +2,10 @@
     <div style="margin: auto; text-align: center;">
         <div v-if="loading"><h2>LOADING</h2></div>
         <div v-if="mode==='Detail'">
-            <SBDetail v-if="!loading" :data="spot.properties"/>
+            <SBDetail v-if="!loading" :data="detailData"/>
             <br>
-            <RouterLink 
-                :to="{name: 'Spot Followers', params: { spotId: spotId }}" 
-                class="btn btn-success"
-            >
-                Followers
-                <br>
-                {{ spot.properties.followers.length }}
-            </RouterLink>
+            <FollowersButton mode="Spot" :count="spot.properties.followers.length" :spotId="spot.id"/>
+            <LikesButton mode="Spot" :count="spot.properties.likes.length" :spotId="spot.id" />
         </div>
         <div v-else-if="mode==='Create' || mode==='Edit'" >
             <SBDetail :data="spotForm" :errors="errors" />
@@ -32,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { SBDetail } from '@/components';
+import { SBDetail, FollowersButton, LikesButton } from '@/components';
 import { ref, toRef, type Ref, type ComputedRef, computed } from 'vue';
 import { DEFAULT_SPOT, type SpotGeometry, type SpotInterface, type SpotProperties, type SpotType } from '@/dto';
 import { useServiceStore } from '@/stores';
@@ -79,14 +73,23 @@ const validationSchema = object({
 const { defineField, validate, errors } = useForm({validationSchema});
 const [titleField] = defineField('title');
 const [descriptionField] = defineField('description');
+
 const spotTypeChoice: Ref<SpotType> = ref('Street');
 const loading: Ref<boolean> = ref(false);
+
 const buttonText: ComputedRef<string> = computed(() => {
     return mode.value === 'Create' ? 'Create Spot' : 'Update Spot';
 });
 const buttonClass: ComputedRef<string> = computed(() => {
     return mode.value === 'Create' ? 'btn btn-success' : 'btn btn-primary';
 });
+const detailData: ComputedRef<any> = computed(() => {
+    return props.spot ? {
+        title: props.spot.properties.title,
+        description: props.spot.properties.description,
+        spotType: props.spot.properties.spotType,
+    } : {}
+})
 
 async function init() {
     loading.value = true;

@@ -12,7 +12,6 @@ import { RouterView, useRouter, useRoute } from 'vue-router';
 import { SBNavBar } from "./components";
 import { computed } from 'vue';
 import { ADMIN_NAVBAR_ROUTES_NAMES } from '@/_admin/router';
-import { useServiceStore } from './stores';
 
 const route = useRoute();
 const router = useRouter();

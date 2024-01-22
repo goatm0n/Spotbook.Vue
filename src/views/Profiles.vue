@@ -10,16 +10,7 @@
                 <RouterLink v-if="user && admin" :to="{ name: 'Edit Profile', params: { userId: user }}" class="btn btn-primary">
                     Edit
                 </RouterLink>
-                <RouterLink 
-                    v-if="user" 
-                    :to="{name:'Profile Followers', params:{userId: user}}" 
-                    class="btn btn-success"
-                >
-                    Followers 
-                    <span>
-                        {{followersCount(user)}}
-                    </span>
-                </RouterLink>
+                <FollowersButton v-if="user" mode="Profile" :count="followersCount(user)" :userId="user"/>
             </template>
         </SBDataTable>
         <ProfileList v-if="displayMode==='List' && !loading" :profiles="profiles" :editMode="admin" />
@@ -31,7 +22,7 @@
 <script setup lang="ts">
 import { type Ref, toRef, ref } from 'vue';
 import { type ProfileInterface, DEFAULT_PROFILE } from '@/dto';
-import { SBDataTable, SBNavBar, ProfileList } from '@/components';
+import { SBDataTable, SBNavBar, ProfileList, FollowersButton } from '@/components';
 import { useServiceStore } from '@/stores';
 
 const serviceStore = useServiceStore();
