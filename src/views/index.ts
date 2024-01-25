@@ -7,3 +7,5 @@ export { default as Spots } from "./Spots.vue";
 export { default as CreateSpot } from "./CreateSpot.vue";
 export { default as ClipView } from "./ClipView.vue";
 export { default as SpotLikes } from "./SpotLikes.vue";
+export { default as ClipLikes } from "./ClipLikes.vue"
+export { default as Profile } from "./Profile.vue";

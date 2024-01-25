@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sbnav">
     <ul class="nav">
       <li v-for="routeName in props.routeNames" class="nav-item">
         <RouterLink v-if="!emit" :to="{ name: routeName }" class="nav-link">{{ routeName }}</RouterLink>
@@ -28,3 +28,9 @@ const props = withDefaults(defineProps<Props>(), {
   emit: false,
 });
 </script>
+
+<style>
+.sbnav {
+  color: green;
+}
+</style>

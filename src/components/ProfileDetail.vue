@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { DEFAULT_PROFILE, type ProfileInterface, EProfileDetailMode } from '@/dto';
-import { FollowersButton, SBDetail } from "@/components";
+import { ClipFeed, FollowersButton, SBDetail } from "@/components";
 import { useServiceStore } from '@/stores';
 import { ref, toRef, type Ref, computed } from 'vue';
 import { string, object } from 'yup';

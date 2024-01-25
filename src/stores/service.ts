@@ -83,6 +83,11 @@ export const useServiceStore = defineStore('service', () => {
     return res.data;
   }
 
+  async function getUserClips(userId:number): Promise<number[]> {
+    const res = await apimanager.getUserClips(userId);
+    return res.data.clip_id_list;
+  }
+
   async function getProfilesByIds(idArray: number[]): Promise<ProfileInterface[]> {
     const res = await apimanager.getProfilesByIds(idArray);
     return res
@@ -90,6 +95,11 @@ export const useServiceStore = defineStore('service', () => {
 
   async function getSpotLikes(spotId: number) {
     const res = await apimanager.getSpotLikes(spotId);
+    return res.data;
+  }
+
+  async function getClipLikes(clipId: number) {
+    const res = await apimanager.getClipLikes(clipId); 
     return res.data;
   }
 
@@ -121,6 +131,8 @@ export const useServiceStore = defineStore('service', () => {
     getSpotClips,
     getProfilesByIds,
     getSpotLikes,
+    getClipLikes,
+    getUserClips,
     login,
   }
 })

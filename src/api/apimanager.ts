@@ -89,12 +89,22 @@ async function getSpotClips(spotId: number) {
     return await APIClient.apiGet(route);
 }
 
+async function getUserClips(userId:number) {
+    const route = CLIPS_API_URL + `/list-user-id/${userId}`;
+    return await APIClient.apiGet(route);
+}
+
 async function getProfilesByIds(idArray: number[]): Promise<ProfileInterface[]> {
     throw new Error("Not Implemented");
 }
 
 async function getSpotLikes(spotId: number) {
     const route = SPOTS_API_URL + `/likes/${spotId}/`;
+    return await APIClient.apiGet(route);
+}
+
+async function getClipLikes(clipId: number) {
+    const route = CLIPS_API_URL + `/likes/${clipId}`;
     return await APIClient.apiGet(route);
 }
 
@@ -119,7 +129,9 @@ export default {
     createSpot,
     getClip,
     getSpotClips,
+    getUserClips,
     getProfilesByIds,
     getSpotLikes,
+    getClipLikes,
     getToken,
 }

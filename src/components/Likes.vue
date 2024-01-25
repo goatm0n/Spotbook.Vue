@@ -23,8 +23,7 @@ const accounts: Ref<AccountInterface[]> = ref([]);
 async function init() {
     if (props.mode === 'Clip' && !props.profileIds && props.clipId) {
         try {
-            const res = await serviceStore.getClip(props.clipId)
-            console.log(res.data);
+            accounts.value = await serviceStore.getClipLikes(props.clipId)
         } catch (err) {
             console.log(err);
             toast.error("Failed To Fetch Clip");
