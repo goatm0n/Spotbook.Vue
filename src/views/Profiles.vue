@@ -11,6 +11,9 @@
                     Edit
                 </RouterLink>
                 <FollowersButton v-if="user" mode="Profile" :count="followersCount(user)" :userId="user"/>
+                <RouterLink v-if="user" :to="{ name: 'Profile', params: {userId: user}}" class="btn btn-sm btn-primary">
+                    View Profile
+                </RouterLink>
             </template>
         </SBDataTable>
         <ProfileList v-if="displayMode==='List' && !loading" :profiles="profiles" :editMode="admin" />
