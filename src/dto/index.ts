@@ -6,4 +6,4 @@ export { EAccountDetailMode } from "./Account";
 export{ type ProfileInterface, DEFAULT_PROFILE, EProfileDetailMode } from "./Profile";
 export type { SpotInterface, SpotGeometry, SpotProperties, SpotType } from "./Spot";
 export { DEFAULT_SPOT } from "./Spot";
-export type { ClipInterface } from "./Clip";
+export type { ClipInterface, ClipDetail } from "./Clip";

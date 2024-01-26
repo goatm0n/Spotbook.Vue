@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import "bootstrap/dist/css/bootstrap.min.css"
-import { type ClipInterface } from "@/dto";
+import { type ClipDetail, type ClipInterface } from "@/dto";
 import { toRef, type Ref, type ComputedRef, computed, ref } from "vue";
 import { LikesButton } from "@/components";
 import { useServiceStore } from "@/stores";
@@ -79,16 +79,19 @@ const serviceStore = useServiceStore();
 
 interface Props {
     clipId: number,
+    clip?: ClipDetail,
 }
 const props = defineProps<Props>();
 
-const clip: Ref<ClipInterface | undefined> = ref();
+const clip: Ref<ClipDetail | undefined> = toRef(props.clip);
 const loading: Ref<boolean> = ref(false); 
 
 async function init() {
-    loading.value = true;
-    await loadData();
-    loading.value = false;
+    if (props.clip === undefined) {        
+        loading.value = true;
+        await loadData();
+        loading.value = false;
+    }
 }
 
 async function loadData() {

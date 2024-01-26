@@ -1,6 +1,6 @@
 import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
-import { DEFAULT_ACCOUNT, type AccountDTO, type ProfileInterface, type SpotInterface } from '@/dto';
+import { DEFAULT_ACCOUNT, type AccountDTO, type ProfileInterface, type SpotInterface, type ClipDetail } from '@/dto';
 import { apimanager } from '@/api';
 
 export const useServiceStore = defineStore('service', () => {
@@ -103,6 +103,12 @@ export const useServiceStore = defineStore('service', () => {
     return res.data;
   }
 
+  async function getProfileClipFeed(userId: number): Promise<ClipDetail[]> {
+    const res = await apimanager.getProfileClipFeed(userId);
+    console.log(res.data)
+    return res.data;
+  }
+
   async function login(payload: any) {
     const res = await apimanager.getToken(payload);
     if (res.status == 200) {
@@ -133,6 +139,7 @@ export const useServiceStore = defineStore('service', () => {
     getSpotLikes,
     getClipLikes,
     getUserClips,
+    getProfileClipFeed,
     login,
   }
 })

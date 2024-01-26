@@ -1,5 +1,5 @@
 <template>
-    <Clip v-if="!loading && !!clips.length" v-for="clip in clips" :clipId="clip"/>
+    <Clip v-if="!loading && !!clips.length" v-for="clip in clips" :clip="clip" :clipId="clip.id"/>
 </template>
 
 <script setup lang="ts">
@@ -8,7 +8,7 @@ import { ref, type Ref } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { Clip } from '@/components';
-import type { ClipInterface } from '@/dto';
+import type { ClipDetail } from '@/dto';
 
 const serviceStore = useServiceStore();
 type Mode = 'Spot' | 'Profile';
@@ -18,7 +18,7 @@ interface Props {
     userId?: number,
 }
 const props = defineProps<Props>();
-const clips: Ref<number[]> = ref([]);
+const clips: Ref<ClipDetail[]> = ref([]);
 const loading: Ref<boolean> = ref(false);
 
 async function init() {
@@ -36,8 +36,8 @@ async function init() {
     } else if (props.mode === 'Profile' && props.userId) {
         try {
             loading.value = true;
-            const res = await serviceStore.getUserClips(props.userId);
-            clips.value = res
+            const res = await serviceStore.getProfileClipFeed(props.userId);
+            clips.value = res;
             loading.value = false;
         } catch (err) {
             loading.value = false;
