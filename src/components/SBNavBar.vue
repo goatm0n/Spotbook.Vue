@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<Props>(), {
     'Profiles', 
     'Spots', 
     'Spot Map',
-    'Login',
+    'Login'
   ] as any,
   emit: false,
 });

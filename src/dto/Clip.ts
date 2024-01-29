@@ -20,3 +20,9 @@ export interface ClipDetail {
     likesCount: number,
     profile_picture: string | null,
 }
+
+export interface ClipForm {
+    spot: number,
+    textContent?: string,
+    image?: File,
+}

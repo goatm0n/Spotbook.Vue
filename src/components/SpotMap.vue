@@ -29,6 +29,10 @@
                 <br>
                 {{ spot.properties.description }}
                 <br>
+                <RouterLink :to="{name: 'Upload Clip', params: {spotId: spot.id}}">
+                    Upload Clip
+                </RouterLink>
+                <br>
                 <RouterLink :to="{name: 'Profile', params: {userId: spot.properties.user}}">
                     {{ spot.properties.user }}
                 </RouterLink>

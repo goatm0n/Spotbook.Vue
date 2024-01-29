@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from "vue-router";
 import { HomeView } from "../views";
 import { AccountDetail, ProfileDetail, SpotMap, SpotDetail, LoginForm, } from "@/components";
-import { Accounts, Followers, Profiles, Spot, Spots, CreateSpot, ClipView, SpotLikes, ClipLikes, Profile } from "@/views";
+import { Accounts, Followers, Profiles, Spot, Spots, CreateSpot, ClipView, SpotLikes, ClipLikes, Profile, UploadClip } from "@/views";
 
 export const PUBLIC_ROUTES: RouteRecordRaw[] = [
     {
@@ -107,5 +107,11 @@ export const PUBLIC_ROUTES: RouteRecordRaw[] = [
         name: 'Login',
         path: '/login',
         component: LoginForm,
-      }
+      },
+      {
+        name: 'Upload Clip',
+        path:'/uploadclip/:spotId',
+        component: UploadClip,
+        props: true,
+      },
 ]

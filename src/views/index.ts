@@ -9,3 +9,4 @@ export { default as ClipView } from "./ClipView.vue";
 export { default as SpotLikes } from "./SpotLikes.vue";
 export { default as ClipLikes } from "./ClipLikes.vue"
 export { default as Profile } from "./Profile.vue";
+export { default as UploadClip } from "./UploadClip.vue";

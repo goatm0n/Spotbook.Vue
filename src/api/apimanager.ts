@@ -2,12 +2,24 @@ import { ACCOUNTS_API_URL, CLIPS_API_URL, PROFILES_API_URL, SPOTBOOK_API_URL, SP
 import APIClient from "./APIClient"
 import type { AccountUpdateInterface, IAccountCreate } from "@/dto/Account";
 import { DEFAULT_PROFILE, type ProfileInterface } from "@/dto/Profile";
+import type { ClipForm } from "@/dto";
+import axios from "axios";
 
 function getAxiosConfig() {
     const authToken: string = String('Bearer ').concat(sessionStorage.getItem('access') as string)
     const axiosConfig = {
         headers: {
             'Authorization': authToken,
+        },
+    }
+    return axiosConfig
+}
+function getUploadClipAxiosConfig() {
+    const authToken: string = String('Bearer ').concat(sessionStorage.getItem('access') as string)
+    const axiosConfig = {
+        headers: {
+            'Authorization': authToken,
+            'Content-Type': 'multipart/form-data',
         },
     }
     return axiosConfig
@@ -118,6 +130,12 @@ async function getSpotClipFeed(spotId: number) {
     return await APIClient.apiGet(route);
 }
 
+async function uploadClip(data: ClipForm) {
+    const route = CLIPS_API_URL + '/create/';
+    const axiosConfig = getUploadClipAxiosConfig();
+    return await APIClient.apiPost(route, data, axiosConfig);
+}
+
 async function getToken(payload: any) {
     const route = SPOTBOOK_API_URL + '/users/token/';
     return await APIClient.apiPost(route, payload);
@@ -145,5 +163,6 @@ export default {
     getClipLikes,
     getProfileClipFeed,
     getSpotClipFeed,
+    uploadClip,
     getToken,
 }

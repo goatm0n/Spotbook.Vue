@@ -1,6 +1,6 @@
 import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
-import { DEFAULT_ACCOUNT, type AccountDTO, type ProfileInterface, type SpotInterface, type ClipDetail } from '@/dto';
+import { DEFAULT_ACCOUNT, type AccountDTO, type ProfileInterface, type SpotInterface, type ClipDetail, type ClipForm } from '@/dto';
 import { apimanager } from '@/api';
 
 export const useServiceStore = defineStore('service', () => {
@@ -113,6 +113,11 @@ export const useServiceStore = defineStore('service', () => {
     return res.data;
   }
 
+  async function uploadClip(data: ClipForm) {
+    const res = await apimanager.uploadClip(data);
+    console.log(res)
+  }
+
   async function login(payload: any) {
     const res = await apimanager.getToken(payload);
     if (res.status == 200) {
@@ -145,6 +150,7 @@ export const useServiceStore = defineStore('service', () => {
     getUserClips,
     getProfileClipFeed,
     getSpotClipFeed,
+    uploadClip,
     login,
   }
 })
