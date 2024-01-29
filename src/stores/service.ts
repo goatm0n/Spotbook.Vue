@@ -105,7 +105,11 @@ export const useServiceStore = defineStore('service', () => {
 
   async function getProfileClipFeed(userId: number): Promise<ClipDetail[]> {
     const res = await apimanager.getProfileClipFeed(userId);
-    console.log(res.data)
+    return res.data;
+  }
+
+  async function getSpotClipFeed(spotId: number): Promise<ClipDetail[]> {
+    const res = await apimanager.getSpotClipFeed(spotId);
     return res.data;
   }
 
@@ -140,6 +144,7 @@ export const useServiceStore = defineStore('service', () => {
     getClipLikes,
     getUserClips,
     getProfileClipFeed,
+    getSpotClipFeed,
     login,
   }
 })

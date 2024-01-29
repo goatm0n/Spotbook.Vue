@@ -25,8 +25,8 @@ async function init() {
     if (props.mode === 'Spot' && props.spotId) {
         try {
             loading.value = true;
-            const res = await serviceStore.getSpotClips(props.spotId);
-            clips.value = res.clip_id_list;
+            const res = await serviceStore.getSpotClipFeed(props.spotId);
+            clips.value = res;
             loading.value = false;
         } catch (err) {
             loading.value = false;

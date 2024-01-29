@@ -113,6 +113,11 @@ async function getProfileClipFeed(userId:number) {
     return await APIClient.apiGet(route);
 }
 
+async function getSpotClipFeed(spotId: number) {
+    const route = CLIPS_API_URL + `/spot-clipfeed/${spotId}`;
+    return await APIClient.apiGet(route);
+}
+
 async function getToken(payload: any) {
     const route = SPOTBOOK_API_URL + '/users/token/';
     return await APIClient.apiPost(route, payload);
@@ -139,5 +144,6 @@ export default {
     getSpotLikes,
     getClipLikes,
     getProfileClipFeed,
+    getSpotClipFeed,
     getToken,
 }
