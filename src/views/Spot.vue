@@ -4,6 +4,9 @@
         <div v-if="!loading">
             <SpotDetail :spot="spot" />
             <br>
+            <RouterLink :to="{name: 'Upload Clip', params: {spotId: spot.id}}" class="btn btn-secondary">
+                Upload Clip
+            </RouterLink>
             <ClipFeed mode="Spot" :spotId="spot.id" />
         </div>
     </div>

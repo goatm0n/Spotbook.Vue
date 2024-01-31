@@ -1,8 +1,7 @@
 <template>
         <div style="margin: auto; text-align: center;">
             <div v-if="!image">
-                <label for="file-input" class="btn btn-secondary">Click to Upload Image</label>
-                <input v-on:change="handleImageUpload" type="file" class="form-control" id="file-input" accept="image/png image/jpeg">
+                <ImageUpload @image="val => image = val" @image-file="val => imageFile = val"/>
             </div>
             <div v-if="image">
                 <img :src="image" style="max-width: 50%; max-height: 50%;">
@@ -13,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { SBDetail } from '@/components';
+import { SBDetail, ImageUpload } from '@/components';
 import type { ClipForm } from '@/dto';
 import { useServiceStore } from '@/stores';
 import { useForm } from 'vee-validate';
