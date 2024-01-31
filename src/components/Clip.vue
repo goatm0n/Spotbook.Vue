@@ -24,7 +24,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            ClipMedia
+                            <img v-if="clip?.image" :src="clip.image" alt="Clip Media" class="image"/>
+                            <span v-else>ClipMedia</span>
                         </div>
                     </div>        
                 </div>
@@ -136,6 +137,9 @@ init();
 }
 .clip-media {
     border: 1px solid black;
+}
+.clip-media .image {
+    width: inherit;
 }
 .clip-textcontent {
     border: 1px solid black;;

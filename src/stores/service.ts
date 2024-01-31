@@ -114,8 +114,7 @@ export const useServiceStore = defineStore('service', () => {
   }
 
   async function uploadClip(data: ClipForm) {
-    const res = await apimanager.uploadClip(data);
-    console.log(res)
+    return await apimanager.uploadClip(data);
   }
 
   async function login(payload: any) {
