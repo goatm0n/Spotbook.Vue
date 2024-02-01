@@ -3,6 +3,8 @@
         <div v-if="loading"><h1>LOADING</h1></div>
         <div v-if="!loading">
             <SBDetail :data="profile" :errors="errors" />
+            <ImageUpload @imageFile="val => profile.profile_picture = val" />
+                <br>
             <button
                 v-if="mode === EProfileDetailMode.EDIT" 
                 class="btn btn-primary"
@@ -17,7 +19,7 @@
 
 <script setup lang="ts">
 import { DEFAULT_PROFILE, type ProfileInterface, EProfileDetailMode } from '@/dto';
-import { ClipFeed, FollowersButton, SBDetail } from "@/components";
+import { ClipFeed, FollowersButton, ImageUpload, SBDetail } from "@/components";
 import { useServiceStore } from '@/stores';
 import { ref, toRef, type Ref, computed } from 'vue';
 import { string, object } from 'yup';

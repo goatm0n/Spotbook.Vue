@@ -3,6 +3,7 @@ export interface ProfileInterface {
     full_name?: string,
     bio?: string,
     followers?: number[],
+    profile_picture?: string,
 }
 
 export const DEFAULT_PROFILE: ProfileInterface = {

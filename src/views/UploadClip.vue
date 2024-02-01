@@ -57,23 +57,6 @@ async function handleUpload() {
     }
 }
 
-function handleImageUpload(e: Event) {
-    if (!e) {
-        return;
-    }
-    const inputElem = e.target as HTMLInputElement;
-    const files = inputElem.files;
-    if (!files?.length) {
-        return;
-    }
-    imageFile.value = files[0];
-    const reader = new FileReader();
-    reader.onloadend = function() {
-        image.value = reader.result;
-    }
-    reader.readAsDataURL(imageFile.value);
-}
-
 </script>
 
 <style>
