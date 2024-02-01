@@ -13,12 +13,14 @@ export interface SpotGeometry {
 export interface SpotProperties {
     user: number,
     title: string,
-    spotType: string,
+    spotType: SpotType,
     description: string,
     likes: number[],
     timestamp: string,
     followers: number[]
 }
+
+export type SpotType = 'Skatepark' | 'Street' | 'D.I.Y';
 
 export const DEFAULT_SPOT: SpotInterface = {
     id: 1,

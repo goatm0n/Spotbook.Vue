@@ -1,13 +1,13 @@
 import type { RouteRecordRaw } from "vue-router";
 import { HomeView } from "../views";
-import { AccountDetail, ProfileDetail } from "@/components";
-import { Accounts, Followers, Profiles, Spot, Spots } from "@/views";
+import { AccountDetail, ProfileDetail, SpotMap, SpotDetail, LoginForm, } from "@/components";
+import { Accounts, Followers, Profiles, Spot, Spots, CreateSpot, ClipView, SpotLikes, ClipLikes, Profile, UploadClip } from "@/views";
 
 export const PUBLIC_ROUTES: RouteRecordRaw[] = [
     {
         path: '/',
         name: 'Home',
-        component: HomeView,
+        component: SpotMap,
         meta: { navbar: true}
       },
       {
@@ -42,7 +42,7 @@ export const PUBLIC_ROUTES: RouteRecordRaw[] = [
       {
         name: "Profile",
         path: "/profile/:userId",
-        component: ProfileDetail,
+        component: Profile,
         props: true,
       },
       {
@@ -73,5 +73,45 @@ export const PUBLIC_ROUTES: RouteRecordRaw[] = [
         name: "Spots",
         path: "/spots",
         component: Spots,
-      }
+      },
+      {
+        name: 'Spot Map',
+        path: '/spotmap',
+        component: SpotMap,
+      },
+      {
+        name: 'Create Spot',
+        path: '/createspot/:lat/:lng',
+        component: CreateSpot,
+        props: true,
+      },
+      {
+        name: 'Clip',
+        path: '/clip/:clipId',
+        component: ClipView,
+        props: true,
+      },
+      {
+        name: 'Spot Likes',
+        path: '/spotlikes/:spotId',
+        component: SpotLikes,
+        props: true,
+      },
+      {
+        name: 'Clip Likes',
+        path: '/cliplikes/:clipId',
+        component: ClipLikes,
+        props: true,
+      },
+      {
+        name: 'Login',
+        path: '/login',
+        component: LoginForm,
+      },
+      {
+        name: 'Upload Clip',
+        path:'/uploadclip/:spotId',
+        component: UploadClip,
+        props: true,
+      },
 ]

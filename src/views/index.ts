@@ -4,3 +4,9 @@ export { default as Profiles } from "./Profiles.vue";
 export { default as Followers } from "./Followers.vue";
 export { default as Spot } from "./Spot.vue";
 export { default as Spots } from "./Spots.vue"; 
+export { default as CreateSpot } from "./CreateSpot.vue";
+export { default as ClipView } from "./ClipView.vue";
+export { default as SpotLikes } from "./SpotLikes.vue";
+export { default as ClipLikes } from "./ClipLikes.vue"
+export { default as Profile } from "./Profile.vue";
+export { default as UploadClip } from "./UploadClip.vue";

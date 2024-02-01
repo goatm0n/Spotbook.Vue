@@ -3,7 +3,7 @@
         <SBNavBar :routeNames="['List', 'Table']" :emit="true" @emitRouteName="handleEmitRouteName"/>
         <div v-if="loading"><h2>LOADING</h2></div>
         <div v-if="!loading && displayMode === 'List'" v-for="spot in spots" style="border: 1px solid grey; border-radius: 16px; width: max-content; margin: auto; padding: 0.01em 16px;">
-            <Spot :spot="spot" />
+            <SpotDetail :spot="spot" />
         </div>
         <SBDataTable v-if="!loading && displayMode === 'Table'" :data="spots">
             <template #row="{spot}">
@@ -20,7 +20,7 @@ import { DEFAULT_SPOT, type SpotInterface } from '@/dto';
 import { useServiceStore } from '@/stores';
 import { ref, type Ref } from 'vue';
 import { Spot } from "@/views";
-import { SBDataTable, SBNavBar } from '@/components';
+import { SBDataTable, SBNavBar, SpotDetail } from '@/components';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
