@@ -32,8 +32,7 @@ function init() {
     routeNames.value = [
       'Home', 
       'Users', 
-      'Create Account', 
-      'Profiles', 
+      'Create Account',       
       'Spots',
       'Login'
     ] 
