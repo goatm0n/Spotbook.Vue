@@ -2,7 +2,7 @@
     <div style="margin: auto; text-align: center;">
         <div v-if="loading"><h1>LOADING</h1></div>
         <div v-if="!loading">
-            <SBDetail :data="profile" :errors="errors" />
+            <SBDetail :data="data" :errors="errors" />
             <ImageUpload
                 v-if="isCurrentUser"
                 @imageFile="val => profile.profile_picture = val" 
@@ -24,10 +24,11 @@
 import { DEFAULT_PROFILE, type ProfileInterface, EProfileDetailMode } from '@/dto';
 import { ClipFeed, FollowersButton, ImageUpload, SBDetail } from "@/components";
 import { useServiceStore } from '@/stores';
-import { ref, toRef, type Ref, computed } from 'vue';
+import { ref, toRef, type Ref, computed, watch, reactive } from 'vue';
 import { string, object } from 'yup';
 import { useForm } from 'vee-validate';
 import { useRoute } from 'vue-router';
+import { toast } from 'vue3-toastify';
 
 const route = useRoute();
 
@@ -54,12 +55,23 @@ const profile: Ref<ProfileInterface> = ref(DEFAULT_PROFILE);
 const [full_name] = defineField('full_name');
 const [bio] = defineField('bio');
 
+const data = ref({
+    full_name: full_name,
+    bio: bio,
+});
+
 const followCount = computed(() => {
     return profile.value.followers ? profile.value.followers.length : 0;
-})
+});
 
 const loading: Ref<boolean> = ref(false);
 const isCurrentUser: Ref<boolean> = ref(false);
+
+watch(isCurrentUser, (newVal) => {
+    if (newVal === true) {
+        mode.value = EProfileDetailMode.EDIT;
+    }
+});
 
 async function init() {
     if (props.profile) {
@@ -82,15 +94,20 @@ async function init() {
             isCurrentUser.value = true;
         }
     }
+    data.value.full_name = profile.value.full_name;
+    data.value.bio = profile.value.bio;
 }
 
 async function saveEdits() {
-    full_name.value = profile.value.full_name;
-    bio.value = profile.value.bio;
     const validation = await validate();
     const valid = validation.valid;
-    if (valid) {
-        serviceStore.updateProfile(profile.value);
+    if (valid) {    
+        profile.value.full_name = full_name.value;
+        profile.value.bio = bio.value;
+        const res = await serviceStore.updateProfile(profile.value);
+        if (res.status=200) {
+            toast.success("Updated Successfully")
+        }
     }
 }
 
