@@ -5,7 +5,7 @@
         </header>
         <SBNavBar :routeNames="['Table', 'List']" :emit="true" @emitRouteName="handleEmitRouteName"/>
         <div v-if="loading"><h2>LOADING</h2></div>
-        <SBDataTable v-if="displayMode==='Table' && !loading" :data="profiles">
+        <SBDataTable v-if="displayMode==='Table' && !loading" :data="tableData">
             <template #row="{user}">
                 <RouterLink v-if="user && admin" :to="{ name: 'Edit Profile', params: { userId: user }}" class="btn btn-primary">
                     Edit
@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Ref, toRef, ref } from 'vue';
+import { type Ref, toRef, ref, computed } from 'vue';
 import { type ProfileInterface, DEFAULT_PROFILE } from '@/dto';
 import { SBDataTable, SBNavBar, ProfileList, FollowersButton } from '@/components';
 import { useServiceStore } from '@/stores';
@@ -47,6 +47,14 @@ function handleEmitRouteName(routeName: any) {
 }
 
 const profiles: Ref<ProfileInterface[]> = ref([DEFAULT_PROFILE]);
+
+const tableData = computed(() => {
+    let res: any = [];
+    profiles.value.forEach(profile => {
+        res.push({user: profile.user, full_name: profile.full_name, bio: profile.bio})
+    })
+    return res;
+})
 
 function followersCount(userId: number): number {
     const profile: ProfileInterface | undefined = profiles.value.find((x) => x.user === userId);

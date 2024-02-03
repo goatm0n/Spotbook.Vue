@@ -22,9 +22,9 @@
 
 <script setup lang="ts">
 import { DEFAULT_PROFILE, type ProfileInterface, EProfileDetailMode } from '@/dto';
-import { ClipFeed, FollowersButton, ImageUpload, SBDetail } from "@/components";
+import { FollowersButton, ImageUpload, SBDetail } from "@/components";
 import { useServiceStore } from '@/stores';
-import { ref, toRef, type Ref, computed, watch, reactive } from 'vue';
+import { ref, toRef, type Ref, computed, watch } from 'vue';
 import { string, object } from 'yup';
 import { useForm } from 'vee-validate';
 import { useRoute } from 'vue-router';

@@ -15,7 +15,7 @@
           <input id="email" type="text" v-model="email">  
           <p v-if="errors.email" style="color: red;">{{ errors.email }}</p>
         </li>
-        <li>
+        <li v-if="mode === EMode.CREATE">
           <label for="password">Password</label>
           <br>
           <input id="password" type="text" v-model="password">
