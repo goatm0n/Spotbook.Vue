@@ -7,7 +7,7 @@
                 v-if="isCurrentUser"
                 @imageFile="val => profile.profile_picture = val" 
             />
-                <br>
+                <br v-if="isCurrentUser">
             <button
                 v-if="mode === EProfileDetailMode.EDIT" 
                 class="btn btn-primary"
@@ -44,8 +44,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const validationSchema = object({
-  full_name: string().required(),
-  bio: string().required(),
+  full_name: string().matches(RegExp('^[A-Za-z0-9., ]+$')),
+  bio: string().matches(RegExp('^[A-Za-z0-9., ]+$')),
 });
 
 const { defineField, validate, errors } = useForm({validationSchema});
@@ -94,8 +94,8 @@ async function init() {
             isCurrentUser.value = true;
         }
     }
-    data.value.full_name = profile.value.full_name;
-    data.value.bio = profile.value.bio;
+    data.value.full_name = profile.value.full_name || " ";
+    data.value.bio = profile.value.bio || " ";
 }
 
 async function saveEdits() {
