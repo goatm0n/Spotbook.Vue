@@ -6,10 +6,10 @@
             <SpotDetail :spot="spot" />
         </div>
         <SBDataTable v-if="!loading && displayMode === 'Table'" :data="spots">
-            <template #row="{spot}">
-                <button class="btn btn-sm btn-primary" @click="editSpot(spot)">
-                    Edit
-                </button>
+            <template #row=slotprops>
+                <RouterLink class="btn btn-sm btn-primary" :to="`/spot/${slotprops.id}`">
+                    Visit Spot 
+                </RouterLink>
             </template>
         </SBDataTable>
     </div>
@@ -19,7 +19,6 @@
 import { DEFAULT_SPOT, type SpotInterface } from '@/dto';
 import { useServiceStore } from '@/stores';
 import { ref, type Ref } from 'vue';
-import { Spot } from "@/views";
 import { SBDataTable, SBNavBar, SpotDetail } from '@/components';
 import { useRouter } from 'vue-router';
 

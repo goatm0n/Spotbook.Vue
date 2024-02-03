@@ -9,6 +9,7 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { Clip } from '@/components';
 import type { ClipDetail } from '@/dto';
+import type { AxiosError } from 'axios';
 
 const serviceStore = useServiceStore();
 type Mode = 'Spot' | 'Profile';
@@ -31,7 +32,10 @@ async function init() {
         } catch (err) {
             loading.value = false;
             console.log(err);
-            toast.error("Failed To Fetch Spot Clips");
+            const res = err as AxiosError;
+            if (res.response?.status !== 404) {
+                toast.error("Failed To Fetch Spot Clips");
+            }
         }
     } else if (props.mode === 'Profile' && props.userId) {
         try {
@@ -42,7 +46,10 @@ async function init() {
         } catch (err) {
             loading.value = false;
             console.log(err);
-            toast.error("Failed To Fetch Spot Clips");
+            const res = err as AxiosError;
+            if (res.response?.status !== 404) {
+                toast.error("Failed To Fetch Profile Clips");
+            }
         } 
     }
 }
