@@ -2,21 +2,12 @@
     <div v-if="!loading" style="margin: auto; text-align: center;">
         <SBNavBar v-if="navbar" :routeNames="['List', 'Table']" :emit="true" @emitRouteName="handleEmitRouteName"/>
         <AccountList v-if="displayMode === 'List'" :accounts="accounts" :editMode="editMode"/>
-        <SBDataTable v-if="displayMode === 'Table'" :data="displayData">
-            <template #row="{id}">
-                <RouterLink v-if="id && editMode" :to="{ name: 'Account - Edit', params: { id: id }}" class="btn btn-primary">
-                    Edit
-                </RouterLink>
-                <RouterLink v-if="id" :to="{ name: 'Profile', params: {userId: id}}" class="btn btn-sm btn-primary">
-                    View Profile
-                </RouterLink>
-            </template>
-        </SBDataTable>
+        <UserList v-if="displayMode === 'Table'" :data="accounts"/>
     </div>
 </template>
 
 <script setup lang="ts">
-import { AccountList, SBDataTable, SBNavBar } from "@/components";
+import { AccountList, SBDataTable, SBNavBar, UserList } from "@/components";
 import { type AccountInterface, DEFAULT_ACCOUNT } from "@/dto/Account";
 import { ref, toRef, type Ref, computed } from "vue";
 import { useServiceStore } from "@/stores";

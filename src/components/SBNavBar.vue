@@ -17,7 +17,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   routeNames: [
     'Home', 
-    'Accounts', 
+    'Users', 
     'Create Account', 
     'Profiles', 
     'Spots', 

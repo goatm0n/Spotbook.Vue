@@ -14,3 +14,4 @@ export { default as ClipFeed } from "./ClipFeed.vue";
 export { default as LikesButton } from "./LikesButton.vue";
 export { default as Likes } from "./Likes.vue";
 export { default as ImageUpload } from "./ImageUpload.vue";
+export { default as UserList } from "./UserList.vue";
