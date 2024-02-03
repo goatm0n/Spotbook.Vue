@@ -45,6 +45,7 @@ async function login() {
         try {
             await serviceStore.login(payload);
             sessionStorage.setItem('email', emailField.value);
+            serviceStore.getUserId();
             toast.success("Login Successful!");
         } catch (err) {
             console.log(err);

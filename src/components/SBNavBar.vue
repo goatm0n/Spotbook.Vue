@@ -1,31 +1,45 @@
 <template>
   <div class="sbnav">
     <ul class="nav">
-      <li v-for="routeName in props.routeNames" class="nav-item">
+      <li v-for="routeName in routeNames" class="nav-item">
         <RouterLink v-if="!emit" :to="{ name: routeName }" class="nav-link">{{ routeName }}</RouterLink>
         <button v-else class="nav-link" @click="$emit('emitRouteName', routeName)"><span>{{ routeName }}</span></button>
+      </li>
+      <li v-if="userId && !props.routeNames" class="nav-item">
+        <RouterLink :to="`/profile/${userId}`" class="nav-link">Profile</RouterLink>
       </li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed, toRef, type ComputedRef } from 'vue';
+
 interface Props {
   routeNames?: string[],
   emit?: boolean,
 }
 const props = withDefaults(defineProps<Props>(), {
-  routeNames: [
-    'Home', 
-    'Users', 
-    'Create Account', 
-    'Profiles', 
-    'Spots', 
-    'Spot Map',
-    'Login'
-  ] as any,
   emit: false,
 });
+const routeNames = toRef(props.routeNames);
+const userId: ComputedRef<string|null> = computed(() => {
+  return sessionStorage.getItem('userId')
+});
+
+function init() {
+  if (props.routeNames === undefined) {
+    routeNames.value = [
+      'Home', 
+      'Users', 
+      'Create Account', 
+      'Profiles', 
+      'Spots',
+      'Login'
+    ] 
+  }
+}
+init();
 </script>
 
 <style>
