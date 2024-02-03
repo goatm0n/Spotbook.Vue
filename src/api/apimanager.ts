@@ -141,6 +141,11 @@ async function getToken(payload: any) {
     return await APIClient.apiPost(route, payload);
 }
 
+async function getUserIdFromEmail(email: string) {
+    const route = PROFILES_API_URL + '/get-user-id-from-email/' + email;
+    return await APIClient.apiGet(route);
+}
+
 export default {
     getAccountDetail,
     createAccount,
@@ -165,4 +170,5 @@ export default {
     getSpotClipFeed,
     uploadClip,
     getToken,
+    getUserIdFromEmail,
 }

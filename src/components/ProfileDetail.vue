@@ -3,7 +3,10 @@
         <div v-if="loading"><h1>LOADING</h1></div>
         <div v-if="!loading">
             <SBDetail :data="profile" :errors="errors" />
-            <ImageUpload @imageFile="val => profile.profile_picture = val" />
+            <ImageUpload
+                v-if="isCurrentUser"
+                @imageFile="val => profile.profile_picture = val" 
+            />
                 <br>
             <button
                 v-if="mode === EProfileDetailMode.EDIT" 
@@ -56,8 +59,9 @@ const followCount = computed(() => {
 })
 
 const loading: Ref<boolean> = ref(false);
+const isCurrentUser: Ref<boolean> = ref(false);
 
-async function init() { 
+async function init() {
     if (props.profile) {
         profile.value = props.profile;
     } else if (props.userId) {
@@ -69,6 +73,14 @@ async function init() {
         loading.value = true;
         profile.value = await serviceStore.getProfile(id);
         loading.value = false;
+    }
+    loading.value = true;
+    const currentUserId: number | undefined = await serviceStore.getUserId(); 
+    loading.value = false;
+    if (currentUserId != undefined) {
+        if (currentUserId === profile.value.user) {
+            isCurrentUser.value = true;
+        }
     }
 }
 

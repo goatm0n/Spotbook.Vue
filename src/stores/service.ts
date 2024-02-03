@@ -125,6 +125,23 @@ export const useServiceStore = defineStore('service', () => {
     }
   }
 
+  async function getUserId(): Promise<number|undefined> {
+    const ssUserId: string | null = sessionStorage.getItem('userId');
+    const ssEmail: string | null = sessionStorage.getItem('email');
+    if (ssUserId) {
+      return Number(ssUserId);
+    }
+    if (ssEmail) {
+      const res = await apimanager.getUserIdFromEmail(ssEmail);
+      const userId: number = res.data.userId;
+      if (userId) {
+        sessionStorage.setItem('userId', userId.toString());
+        return userId;
+      }
+    }
+    return undefined
+  }
+
   return { 
     AccountDTO, 
     latLng,
@@ -151,5 +168,6 @@ export const useServiceStore = defineStore('service', () => {
     getSpotClipFeed,
     uploadClip,
     login,
+    getUserId,
   }
 })
