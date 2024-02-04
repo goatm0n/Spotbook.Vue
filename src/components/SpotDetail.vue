@@ -4,9 +4,13 @@
         <div v-if="mode==='Detail'">
             <SBDetail v-if="!loading" :data="detailData"/>
             <br>
-            <FollowersButton mode="Spot" :count="spot.properties.followers.length" :spotId="spot.id"/>
-            <LikesButton mode="Spot" :count="spot.properties.likes.length" :spotId="spot.id" />
-            <LikeButton :spotId="spot.id" :liked="doesUserLike"/>
+            <FollowersButton class="btn btn-sm btn-success" mode="Spot" :count="spot.properties.followers.length" :spotId="spot.id"/>
+            <LikesButton class="btn btn-sm btn-primary" mode="Spot" :count="spot.properties.likes.length" :spotId="spot.id" />
+            <LikeButton :spotId="spot.id" :liked="doesUserLike"/><br>
+            <CoordsButton :coords="spot.geometry.coordinates"/>
+            <RouterLink :to="{name: 'Upload Clip', params: {spotId: spot.id}}" class="btn btn-sm btn-secondary">
+                Upload Clip
+            </RouterLink>
         </div>
         <div v-else-if="mode==='Create' || mode==='Edit'" >
             <SBDetail :data="spotForm" :errors="errors" />
@@ -27,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { SBDetail, FollowersButton, LikesButton, LikeButton } from '@/components';
+import { SBDetail, FollowersButton, LikesButton, LikeButton, CoordsButton } from '@/components';
 import { ref, toRef, type Ref, type ComputedRef, computed } from 'vue';
 import { DEFAULT_SPOT, type SpotGeometry, type SpotInterface, type SpotProperties, type SpotType } from '@/dto';
 import { useServiceStore } from '@/stores';

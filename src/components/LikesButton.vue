@@ -1,7 +1,7 @@
 <template>
     <RouterLink 
         :to="{name: routeName, params: routeParams}" 
-        class="btn btn-primary"
+        :class="props.class"
     >
         Likes
         <br>
@@ -20,8 +20,11 @@ interface Props {
     spotId?: number,
     clipId?: number,
     count: number,
+    class?: string,
 }
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+    class: "btn btn-primary",
+});
 
 const routeName: ComputedRef<string> = computed(() => {
     return props.mode === 'Spot' ? 'Spot Likes' : 'Clip Likes';

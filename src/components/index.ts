@@ -18,3 +18,4 @@ export { default as UserList } from "./UserList.vue";
 export { default as LikeButton } from "./LikeButton.vue";
 export { default as ShareButton } from "./ShareButton.vue";
 export { default as LogoutButton } from "./LogoutButton.vue";
+export { default as CoordsButton } from "./CoordsButton.vue";

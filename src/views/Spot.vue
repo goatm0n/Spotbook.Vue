@@ -3,17 +3,13 @@
         <div v-if="loading"><h2>LOADING</h2></div>
         <div v-if="!loading">
             <SpotDetail :spot="spot" />
-            <br>
-            <RouterLink :to="{name: 'Upload Clip', params: {spotId: spot.id}}" class="btn btn-secondary">
-                Upload Clip
-            </RouterLink>
             <ClipFeed mode="Spot" :spotId="spot.id" />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { SBDetail, FollowersButton, ClipFeed, SpotDetail } from '@/components';
+import { CoordsButton, ClipFeed, SpotDetail } from '@/components';
 import { ref, type Ref } from 'vue';
 import { DEFAULT_SPOT, type SpotInterface } from '@/dto';
 import { useServiceStore } from '@/stores';
