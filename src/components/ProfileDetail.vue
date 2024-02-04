@@ -2,10 +2,14 @@
     <div style="margin: auto; text-align: center;">
         <div v-if="loading"><h1>LOADING</h1></div>
         <div v-if="!loading">
+            <div v-if="image">
+                <img :src="image" style="max-width: 50%; max-height: 50%;" />
+            </div>
             <SBDetail :data="data" :errors="errors" />
             <ImageUpload
                 v-if="isCurrentUser"
                 @imageFile="val => profile.profile_picture = val" 
+                @image="val => image=val"
             />
                 <br v-if="isCurrentUser">
             <button
@@ -59,6 +63,7 @@ const data = ref({
     full_name: full_name,
     bio: bio,
 });
+const image = ref();
 
 const followCount = computed(() => {
     return profile.value.followers ? profile.value.followers.length : 0;
@@ -93,6 +98,9 @@ async function init() {
         if (currentUserId === profile.value.user) {
             isCurrentUser.value = true;
         }
+    }
+    if (profile.value.profile_picture) {
+        image.value = profile.value.profile_picture;
     }
     data.value.full_name = profile.value.full_name || " ";
     data.value.bio = profile.value.bio || " ";
