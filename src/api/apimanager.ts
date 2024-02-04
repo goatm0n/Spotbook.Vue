@@ -147,6 +147,18 @@ async function getUserIdFromEmail(email: string) {
     return await APIClient.apiGet(route);
 }
 
+async function clipLikeToggle(clipId:number) {
+    const route = `${CLIPS_API_URL}/like-toggle/${clipId}/`    
+    const axiosConfig = getAxiosConfig();
+    return await APIClient.apiPost(route, {}, axiosConfig)    
+}
+
+async function spotLikeToggle(spotId:number) {
+    const route = `${SPOTS_API_URL}/like-toggle/${spotId}/`    
+    const axiosConfig = getAxiosConfig();
+    return await APIClient.apiPost(route, {}, axiosConfig)    
+}
+
 export default {
     getAccountDetail,
     createAccount,
@@ -172,4 +184,6 @@ export default {
     uploadClip,
     getToken,
     getUserIdFromEmail,
+    clipLikeToggle,
+    spotLikeToggle,
 }

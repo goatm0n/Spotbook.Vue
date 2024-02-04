@@ -38,7 +38,6 @@ async function init() {
             toast.error("Failed To Fetch Profiles");
         }
     }
-    console.log(accounts.value)
 }
 init();
 </script>

@@ -6,6 +6,7 @@
             <br>
             <FollowersButton mode="Spot" :count="spot.properties.followers.length" :spotId="spot.id"/>
             <LikesButton mode="Spot" :count="spot.properties.likes.length" :spotId="spot.id" />
+            <LikeButton :spotId="spot.id" :liked="doesUserLike"/>
         </div>
         <div v-else-if="mode==='Create' || mode==='Edit'" >
             <SBDetail :data="spotForm" :errors="errors" />
@@ -26,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { SBDetail, FollowersButton, LikesButton } from '@/components';
+import { SBDetail, FollowersButton, LikesButton, LikeButton } from '@/components';
 import { ref, toRef, type Ref, type ComputedRef, computed } from 'vue';
 import { DEFAULT_SPOT, type SpotGeometry, type SpotInterface, type SpotProperties, type SpotType } from '@/dto';
 import { useServiceStore } from '@/stores';
@@ -89,7 +90,14 @@ const detailData: ComputedRef<any> = computed(() => {
         description: props.spot.properties.description,
         spotType: props.spot.properties.spotType,
     } : {}
-})
+});
+const doesUserLike: ComputedRef<boolean|undefined> = computed(() => {
+    const ssUserId: string|null = sessionStorage.getItem('userId');
+    if (ssUserId) {
+        return spot.value.properties.likes.includes(Number(ssUserId));
+    }
+    
+});
 
 async function init() {
     loading.value = true;

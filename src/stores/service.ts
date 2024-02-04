@@ -142,6 +142,14 @@ export const useServiceStore = defineStore('service', () => {
     return undefined
   }
 
+  async function clipLikeToggle(clipId:number) {
+    return await apimanager.clipLikeToggle(clipId);
+  }
+
+  async function spotLikeToggle(spotId:number) {
+    return await apimanager.spotLikeToggle(spotId);
+  }
+
   return { 
     AccountDTO, 
     latLng,
@@ -169,5 +177,7 @@ export const useServiceStore = defineStore('service', () => {
     uploadClip,
     login,
     getUserId,
+    clipLikeToggle,
+    spotLikeToggle,
   }
 })
