@@ -2,27 +2,34 @@
     <div style="margin: auto; text-align: center;">
         <div v-if="loading"><h1>LOADING</h1></div>
         <div v-if="!loading">
+            <div v-if="image">
+                <img :src="image" style="max-width: 50%; max-height: 50%;" />
+            </div>
             <SBDetail :data="data" :errors="errors" />
             <ImageUpload
                 v-if="isCurrentUser"
+                class="btn btn-sm btn-secondary"
                 @imageFile="val => profile.profile_picture = val" 
+                @image="val => image=val"
             />
-                <br v-if="isCurrentUser">
+            <br v-if="isCurrentUser">
             <button
                 v-if="mode === EProfileDetailMode.EDIT" 
-                class="btn btn-primary"
+                class="btn btn-sm btn-primary"
                 @click="saveEdits"
             >
-                <span>Update</span>
+                <span>update</span>
             </button>
-            <FollowersButton mode="Profile" :count="followCount" :userId="profile.user" />
+            <LogoutButton v-if="isCurrentUser" />
+            <br v-if="isCurrentUser">
+            <FollowersButton class="btn btn-sm btn-success" mode="Profile" :count="followCount" :userId="profile.user" />
         </div>    
     </div>
 </template>
 
 <script setup lang="ts">
 import { DEFAULT_PROFILE, type ProfileInterface, EProfileDetailMode } from '@/dto';
-import { FollowersButton, ImageUpload, SBDetail } from "@/components";
+import { FollowersButton, ImageUpload, LogoutButton, SBDetail } from "@/components";
 import { useServiceStore } from '@/stores';
 import { ref, toRef, type Ref, computed, watch } from 'vue';
 import { string, object } from 'yup';
@@ -59,6 +66,7 @@ const data = ref({
     full_name: full_name,
     bio: bio,
 });
+const image = ref();
 
 const followCount = computed(() => {
     return profile.value.followers ? profile.value.followers.length : 0;
@@ -93,6 +101,9 @@ async function init() {
         if (currentUserId === profile.value.user) {
             isCurrentUser.value = true;
         }
+    }
+    if (profile.value.profile_picture) {
+        image.value = profile.value.profile_picture;
     }
     data.value.full_name = profile.value.full_name || " ";
     data.value.bio = profile.value.bio || " ";

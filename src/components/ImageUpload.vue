@@ -1,7 +1,7 @@
 <template>
     <label 
         for="file-input" 
-        class="btn btn-secondary"
+        :class="props.class"
     >
         Click to Upload Image
     </label>
@@ -15,6 +15,12 @@
 </template>
 
 <script setup lang="ts">
+interface Props {
+    class?: string
+}
+const props = withDefaults(defineProps<Props>(), {
+    class: "btn btn-secondary"
+});
 const emit = defineEmits(['image', 'imageFile']);
 function handleImageUpload(e: Event) {
     if (!e) {

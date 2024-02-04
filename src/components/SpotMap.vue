@@ -6,6 +6,7 @@
         :center="[54.604429050318664, -5.924117259791455]"
         @click="handleMapClick"
         id="map"
+        :use-global-leaflet="false"
     >
         <LTileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -1,7 +1,7 @@
 <template>
     <RouterLink 
         :to="{name: routeName, params: routeParams}" 
-        class="btn btn-success"
+        :class="props.class"
     >
         Followers
         <br>
@@ -20,8 +20,11 @@ interface Props {
     spotId?: number,
     userId?: number,
     count: number,
+    class?: string,
 }
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+    class: "btn btn-success"
+});
 
 const routeName: ComputedRef<string> = computed(() => {
     return props.mode === 'Spot' ? 'Spot Followers' : 'Profile Followers';

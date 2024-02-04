@@ -150,6 +150,13 @@ export const useServiceStore = defineStore('service', () => {
     return await apimanager.spotLikeToggle(spotId);
   }
 
+  async function logOut() {
+    sessionStorage.removeItem('refresh');
+    sessionStorage.removeItem('access');
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('userId');
+  }
+
   return { 
     AccountDTO, 
     latLng,
@@ -179,5 +186,6 @@ export const useServiceStore = defineStore('service', () => {
     getUserId,
     clipLikeToggle,
     spotLikeToggle,
+    logOut,
   }
 })
