@@ -34,8 +34,13 @@ watch(liked, (newVal) => {
             if (err.response?.status === 401) {
                 toast.error("Login Required");
             }
-        })
-           
+        });    
+    } else if (props.spotId) {
+        serviceStore.spotLikeToggle(props.spotId).catch((err:AxiosError) => {
+            if (err.response?.status === 401) {
+                toast.error("Login Required");
+            }
+        });
     }    
 });
 </script>

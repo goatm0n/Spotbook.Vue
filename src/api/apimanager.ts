@@ -153,6 +153,12 @@ async function clipLikeToggle(clipId:number) {
     return await APIClient.apiPost(route, {}, axiosConfig)    
 }
 
+async function spotLikeToggle(spotId:number) {
+    const route = `${SPOTS_API_URL}/like-toggle/${spotId}/`    
+    const axiosConfig = getAxiosConfig();
+    return await APIClient.apiPost(route, {}, axiosConfig)    
+}
+
 export default {
     getAccountDetail,
     createAccount,
@@ -179,4 +185,5 @@ export default {
     getToken,
     getUserIdFromEmail,
     clipLikeToggle,
+    spotLikeToggle,
 }
