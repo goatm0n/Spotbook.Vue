@@ -5,7 +5,7 @@
             <SBDetail v-if="!loading" :data="detailData"/>
             <br>
             <LikeButton class="m-1" :spotId="spot.id" :liked="doesUserLike"/>
-            <FollowButton /><br>
+            <FollowButton :spot-id="spot.id" /><br>
             <FollowersButton class="btn btn-sm btn-secondary m-1" mode="Spot" :count="spot.properties.followers.length" :spotId="spot.id"/>
             <LikesButton class="btn btn-sm btn-secondary" mode="Spot" :count="spot.properties.likes.length" :spotId="spot.id" /><br>
             <CoordsButton :coords="spot.geometry.coordinates"/>

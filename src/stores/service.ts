@@ -158,11 +158,11 @@ export const useServiceStore = defineStore('service', () => {
   }
 
   async function spotFollowToggle(spotId:number) {
-    console.log("sdasdasd")
+    return await apimanager.spotFollowToggle(spotId);
   }
 
   async function userFollowToggle(userId:number) {
-    console.log("sdad")
+    return await apimanager.userFollowToggle(userId);
   }
 
   return { 

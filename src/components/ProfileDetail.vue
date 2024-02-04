@@ -23,7 +23,7 @@
             <LogoutButton v-if="isCurrentUser" />
             <br v-if="isCurrentUser">
             <FollowersButton class="btn btn-sm btn-success m-1" mode="Profile" :count="followCount" :userId="profile.user" />
-            <FollowButton v-if="!isCurrentUser" />
+            <FollowButton v-if="!isCurrentUser" :user-id="profile.user" />
         </div>    
     </div>
 </template>

@@ -159,6 +159,18 @@ async function spotLikeToggle(spotId:number) {
     return await APIClient.apiPost(route, {}, axiosConfig)    
 }
 
+async function spotFollowToggle(spotId:number) {
+    const route = `${SPOTS_API_URL}/follow-toggle/${spotId}/`;
+    const axiosConfig = getAxiosConfig();
+    return await APIClient.apiPost(route, {}, axiosConfig);
+}
+
+async function userFollowToggle(userId:number) {
+    const route = `${PROFILES_API_URL}/follow-toggle/${userId}/`;
+    const axiosConfig = getAxiosConfig();
+    return await APIClient.apiPost(route, {}, axiosConfig);
+}
+
 export default {
     getAccountDetail,
     createAccount,
@@ -186,4 +198,6 @@ export default {
     getUserIdFromEmail,
     clipLikeToggle,
     spotLikeToggle,
+    spotFollowToggle,
+    userFollowToggle,
 }
