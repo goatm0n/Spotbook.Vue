@@ -14,7 +14,7 @@ function getAxiosConfig() {
     }
     return axiosConfig
 }
-function getUploadClipAxiosConfig() {
+function getFileUploadAxiosConfig() {
     const authToken: string = String('Bearer ').concat(sessionStorage.getItem('access') as string)
     const axiosConfig = {
         headers: {
@@ -57,7 +57,8 @@ async function getProfile(userId: number) {
 
 async function updateProfile(profile: ProfileInterface) {
     const route = PROFILES_API_URL + "/update/" + profile.user.toString();
-    return await APIClient.apiPut(route, profile);
+    const axiosConfig = getFileUploadAxiosConfig();
+    return await APIClient.apiPut(route, profile, axiosConfig);
 }
 
 async function getProfileFollowers(userId:number) {
@@ -132,7 +133,7 @@ async function getSpotClipFeed(spotId: number) {
 
 async function uploadClip(data: ClipForm) {
     const route = CLIPS_API_URL + '/create/';
-    const axiosConfig = getUploadClipAxiosConfig();
+    const axiosConfig = getFileUploadAxiosConfig();
     return await APIClient.apiPost(route, data, axiosConfig);
 }
 
