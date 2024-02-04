@@ -43,7 +43,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            LikeButton
+                            <LikeButton :liked="doesUserLike" :clipId="clipId"/>
                         </div>
                         <div class="col">
                             <LikesButton mode="Clip" :count="clip?.likesCount" :clipId="clipId" />
@@ -72,7 +72,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import { type ClipDetail, type ClipInterface } from "@/dto";
 import { toRef, type Ref, type ComputedRef, computed, ref } from "vue";
-import { LikesButton } from "@/components";
+import { LikesButton, LikeButton } from "@/components";
 import { useServiceStore } from "@/stores";
 import { toast } from "vue3-toastify";
 
@@ -86,6 +86,14 @@ const props = defineProps<Props>();
 
 const clip: Ref<ClipDetail | undefined> = toRef(props.clip);
 const loading: Ref<boolean> = ref(false); 
+const doesUserLike: ComputedRef<boolean|undefined> = computed(() => {
+    if (clip) {
+        const ssUserId: string|null = sessionStorage.getItem('userId');
+        if (ssUserId) {
+            return clip.value?.likes.includes(Number(ssUserId));
+        }
+    }
+})
 
 async function init() {
     if (props.clip === undefined) {        
