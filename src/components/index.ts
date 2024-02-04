@@ -16,3 +16,4 @@ export { default as Likes } from "./Likes.vue";
 export { default as ImageUpload } from "./ImageUpload.vue";
 export { default as UserList } from "./UserList.vue";
 export { default as LikeButton } from "./LikeButton.vue";
+export { default as ShareButton } from "./ShareButton.vue";

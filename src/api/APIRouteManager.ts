@@ -1,6 +1,6 @@
 
 
-const baseUrl: string= window.location.protocol + "//" + window.location.host;
+export const BASE_URL: string= window.location.protocol + "//" + window.location.host;
 
 const baseApiUrl: string = "https://spotbookserver.spotbookapp.com";
 
