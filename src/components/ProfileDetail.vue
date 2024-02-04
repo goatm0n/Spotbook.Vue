@@ -8,28 +8,29 @@
             <SBDetail :data="data" :errors="errors" />
             <ImageUpload
                 v-if="isCurrentUser"
-                class="btn btn-sm btn-secondary"
+                class="btn btn-sm btn-secondary m-1"
                 @imageFile="val => profile.profile_picture = val" 
                 @image="val => image=val"
             />
             <br v-if="isCurrentUser">
             <button
                 v-if="mode === EProfileDetailMode.EDIT" 
-                class="btn btn-sm btn-primary"
+                class="btn btn-sm btn-primary m-1"
                 @click="saveEdits"
             >
                 <span>update</span>
             </button>
             <LogoutButton v-if="isCurrentUser" />
             <br v-if="isCurrentUser">
-            <FollowersButton class="btn btn-sm btn-success" mode="Profile" :count="followCount" :userId="profile.user" />
+            <FollowersButton class="btn btn-sm btn-success m-1" mode="Profile" :count="followCount" :userId="profile.user" />
+            <FollowButton v-if="!isCurrentUser" />
         </div>    
     </div>
 </template>
 
 <script setup lang="ts">
 import { DEFAULT_PROFILE, type ProfileInterface, EProfileDetailMode } from '@/dto';
-import { FollowersButton, ImageUpload, LogoutButton, SBDetail } from "@/components";
+import { FollowersButton, ImageUpload, LogoutButton, SBDetail, FollowButton } from "@/components";
 import { useServiceStore } from '@/stores';
 import { ref, toRef, type Ref, computed, watch } from 'vue';
 import { string, object } from 'yup';

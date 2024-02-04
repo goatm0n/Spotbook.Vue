@@ -2,10 +2,10 @@
     <button
         type="button"
         :class="btnClass"
-        @click="liked = !liked"
+        @click="following = !following"
     >
-        <span v-if="liked">Liked</span>
-        <span v-else>Like</span>
+        <span v-if="following">Following</span>
+        <span v-else>Follow</span>
     </button>
 </template>
 
@@ -17,26 +17,26 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 const serviceStore = useServiceStore();
 interface Props {
-    liked?: boolean,
-    clipId?: number,
+    following?: boolean,
+    userId?: number,
     spotId?: number,
 }
 const props = withDefaults(defineProps<Props>(), {
-    liked: false,
+    following: false,
 })
-const liked: Ref<boolean> = toRef(props.liked);
+const following: Ref<boolean> = toRef(props.following);
 const btnClass: ComputedRef<string> = computed(() => {
-    return liked.value ? "btn btn-sm btn-success" : "btn btn-sm btn-secondary";
+    return following.value ? "btn btn-sm btn-success" : "btn btn-sm btn-secondary";
 });
-watch(liked, (newVal) => {
-    if (props.clipId) {
-        serviceStore.clipLikeToggle(props.clipId).catch((err:AxiosError) => {
+watch(following, (newVal) => {
+    if (props.userId) {
+        serviceStore.userFollowToggle(props.userId).catch((err:AxiosError) => {
             if (err.response?.status === 401) {
                 toast.error("Login Required");
             }
         });    
     } else if (props.spotId) {
-        serviceStore.spotLikeToggle(props.spotId).catch((err:AxiosError) => {
+        serviceStore.spotFollowToggle(props.spotId).catch((err:AxiosError) => {
             if (err.response?.status === 401) {
                 toast.error("Login Required");
             }

@@ -150,11 +150,19 @@ export const useServiceStore = defineStore('service', () => {
     return await apimanager.spotLikeToggle(spotId);
   }
 
-  async function logOut() {
+  function logOut() {
     sessionStorage.removeItem('refresh');
     sessionStorage.removeItem('access');
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('userId');
+  }
+
+  async function spotFollowToggle(spotId:number) {
+    console.log("sdasdasd")
+  }
+
+  async function userFollowToggle(userId:number) {
+    console.log("sdad")
   }
 
   return { 
@@ -187,5 +195,7 @@ export const useServiceStore = defineStore('service', () => {
     clipLikeToggle,
     spotLikeToggle,
     logOut,
+    spotFollowToggle,
+    userFollowToggle,
   }
 })
