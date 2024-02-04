@@ -49,7 +49,7 @@
                             <LikesButton mode="Clip" :count="clip?.likesCount" :clipId="clipId" />
                         </div>
                         <div class="col">
-                            ShareButton
+                            <ShareButton :link="`${BASE_URL}/clip/${clipId}`"/>
                         </div>
                     </div>
                 </div>
@@ -72,9 +72,10 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import { type ClipDetail, type ClipInterface } from "@/dto";
 import { toRef, type Ref, type ComputedRef, computed, ref } from "vue";
-import { LikesButton, LikeButton } from "@/components";
+import { LikesButton, LikeButton, ShareButton } from "@/components";
 import { useServiceStore } from "@/stores";
 import { toast } from "vue3-toastify";
+import { BASE_URL } from "@/api/APIRouteManager";
 
 const serviceStore = useServiceStore();
 
