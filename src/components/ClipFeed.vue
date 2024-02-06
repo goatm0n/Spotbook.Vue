@@ -17,6 +17,7 @@ interface Props {
     mode: Mode,
     spotId?: number,
     userId?: number,
+    spotIdList?: number[],
 }
 const props = defineProps<Props>();
 const clips: Ref<ClipDetail[]> = ref([]);
@@ -51,6 +52,21 @@ async function init() {
                 toast.error("Failed To Fetch Profile Clips");
             }
         } 
+    } else if (props.mode === 'Spot' && props.spotIdList) {
+        loading.value = true;
+        for (const key in props.spotIdList) {
+            try {
+                const res: ClipDetail[] = await serviceStore.getSpotClipFeed(props.spotIdList[key]);
+                clips.value = clips.value.concat(res);
+            } catch (err) {
+                console.log(err);
+                const res = err as AxiosError;
+                if (res.response?.status !== 404) {
+                    toast.error("Failed To Fetch Clips")
+                }
+            }
+        }
+        loading.value = false;
     }
 }
 

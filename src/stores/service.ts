@@ -165,6 +165,17 @@ export const useServiceStore = defineStore('service', () => {
     return await apimanager.userFollowToggle(userId);
   }
 
+  async function getSpotList(userId:number, name:string) {
+    switch (name) {
+      case 'following':
+        return await apimanager.getSpotsUserFollows(userId);
+      case 'likes':
+        return await apimanager.getSpotsUserLikes(userId);
+      default:
+        return await apimanager.getSpotsUserFollows(userId);        
+    }
+  }
+
   return { 
     AccountDTO, 
     latLng,
@@ -197,5 +208,6 @@ export const useServiceStore = defineStore('service', () => {
     logOut,
     spotFollowToggle,
     userFollowToggle,
+    getSpotList,
   }
 })

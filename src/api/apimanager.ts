@@ -127,7 +127,7 @@ async function getProfileClipFeed(userId:number) {
 }
 
 async function getSpotClipFeed(spotId: number) {
-    const route = CLIPS_API_URL + `/spot-clipfeed/${spotId}`;
+    const route = CLIPS_API_URL + `/spot-clipfeed/${spotId}/`;
     return await APIClient.apiGet(route);
 }
 
@@ -171,6 +171,16 @@ async function userFollowToggle(userId:number) {
     return await APIClient.apiPost(route, {}, axiosConfig);
 }
 
+async function getSpotsUserFollows(userId:number) {
+    const route = `${SPOTS_API_URL}/following/${userId}/`;
+    return await APIClient.apiGet(route);
+}
+
+async function getSpotsUserLikes(userId:number) {
+    const route = `${SPOTS_API_URL}/spots-user-likes/${userId}/`;
+    return await APIClient.apiGet(route);
+}
+
 export default {
     getAccountDetail,
     createAccount,
@@ -200,4 +210,6 @@ export default {
     spotLikeToggle,
     spotFollowToggle,
     userFollowToggle,
+    getSpotsUserFollows,
+    getSpotsUserLikes,
 }

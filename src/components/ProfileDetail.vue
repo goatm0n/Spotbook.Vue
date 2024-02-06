@@ -111,6 +111,9 @@ async function init() {
 }
 
 async function saveEdits() {
+    if (image.value.startsWith('http')) {
+        profile.value.profile_picture = undefined;        
+    }
     const validation = await validate();
     const valid = validation.valid;
     if (valid) {    
