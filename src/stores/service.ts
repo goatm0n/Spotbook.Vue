@@ -150,11 +150,30 @@ export const useServiceStore = defineStore('service', () => {
     return await apimanager.spotLikeToggle(spotId);
   }
 
-  async function logOut() {
+  function logOut() {
     sessionStorage.removeItem('refresh');
     sessionStorage.removeItem('access');
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('userId');
+  }
+
+  async function spotFollowToggle(spotId:number) {
+    return await apimanager.spotFollowToggle(spotId);
+  }
+
+  async function userFollowToggle(userId:number) {
+    return await apimanager.userFollowToggle(userId);
+  }
+
+  async function getSpotList(userId:number, name:string) {
+    switch (name) {
+      case 'following':
+        return await apimanager.getSpotsUserFollows(userId);
+      case 'likes':
+        return await apimanager.getSpotsUserLikes(userId);
+      default:
+        return await apimanager.getSpotsUserFollows(userId);        
+    }
   }
 
   return { 
@@ -187,5 +206,8 @@ export const useServiceStore = defineStore('service', () => {
     clipLikeToggle,
     spotLikeToggle,
     logOut,
+    spotFollowToggle,
+    userFollowToggle,
+    getSpotList,
   }
 })

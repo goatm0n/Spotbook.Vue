@@ -1,6 +1,9 @@
 <template>
-    <ProfileDetail :userId="Number(props.userId)"/>
-    <ClipFeed mode="Profile" :userId="Number(props.userId)"/>
+    <div style="margin: auto; text-align: center;">
+        <ProfileDetail :userId="Number(props.userId)"/>
+        <RouterLink class="btn btn-sm btn-secondary" :to="`/spotsFeed/${props.userId}`">SpotsFeed</RouterLink>
+        <ClipFeed mode="Profile" :userId="Number(props.userId)"/>
+    </div>
 </template>
 
 <script setup lang="ts">

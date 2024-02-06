@@ -1,6 +1,6 @@
 <template>
-    <div style="margin: auto; text-align: center;">
-        <Profiles :profiles="profiles" v-bind:key="profiles.length"/>
+    <div v-if="!loading" style="margin: auto; text-align: center;">
+        <Profiles :profiles="profiles" />
     </div>
 </template>
 
