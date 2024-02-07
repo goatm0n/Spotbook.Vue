@@ -2,7 +2,7 @@
 
 export const BASE_URL: string= window.location.protocol + "//" + window.location.host;
 
-const baseApiUrl: string = "http://localhost:8000";
+const baseApiUrl: string = "https://spotbookserver.spotbookapp.com";
 
 export const ACCOUNTS_API_URL: string = baseApiUrl + "/accounts/api";
 export const PROFILES_API_URL: string = baseApiUrl + "/profiles/api";

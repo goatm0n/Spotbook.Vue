@@ -11,4 +11,4 @@ export { default as ClipLikes } from "./ClipLikes.vue"
 export { default as Profile } from "./Profile.vue";
 export { default as UploadClip } from "./UploadClip.vue";
 export { default as Users } from "./Users.vue";
-export { default as SpotsFeed } from "./SpotsFeed.vue";
+export { default as SpotFeed } from "./SpotFeed.vue";

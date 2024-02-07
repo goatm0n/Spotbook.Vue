@@ -1,7 +1,7 @@
 <template>
     <div style="margin: auto; text-align: center;">
         <ProfileDetail :userId="Number(props.userId)"/>
-        <RouterLink class="btn btn-sm btn-secondary" :to="`/spotsFeed/${props.userId}`">SpotsFeed</RouterLink>
+        <RouterLink class="btn btn-sm btn-secondary" :to="`/spotfeed/${props.userId}`">SpotsFeed</RouterLink>
         <ClipFeed mode="Profile" :userId="Number(props.userId)"/>
     </div>
 </template>

@@ -8,6 +8,9 @@
       <li v-if="userId && !props.routeNames" class="nav-item">
         <RouterLink :to="`/profile/${userId}`" class="nav-link">Profile</RouterLink>
       </li>
+      <li v-if="userId && !props.routeNames" class="nav-item">
+        <RouterLink :to="`/spotfeed/${userId}`" class="nav-link">Spotfeed</RouterLink>
+      </li>
     </ul>
   </div>
 </template>
