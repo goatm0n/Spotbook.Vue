@@ -181,6 +181,16 @@ async function getSpotsUserLikes(userId:number) {
     return await APIClient.apiGet(route);
 }
 
+async function getSpotLists(userId:number) {
+    const route = `${SPOTS_API_URL}/spotlists/${userId}/`;
+    return await APIClient.apiGet(route);
+}
+
+async function getSpotList(id:number) {
+    const route = `${SPOTS_API_URL}/spotlist/${id}/`;
+    return await APIClient.apiGet(route);
+}
+
 export default {
     getAccountDetail,
     createAccount,
@@ -212,4 +222,6 @@ export default {
     userFollowToggle,
     getSpotsUserFollows,
     getSpotsUserLikes,
+    getSpotLists,
+    getSpotList,
 }

@@ -1,5 +1,7 @@
 <template>
-    <Clip v-if="!loading && !!clips.length" v-for="clip in clips" :clip="clip" :clipId="clip.id"/>
+    <div v-if="!loading && !!clips.length" v-for="clip in clips">
+        <Clip v-if="clip && clip.id" :clip="clip" :clipId="clip.id"/>
+    </div>
 </template>
 
 <script setup lang="ts">

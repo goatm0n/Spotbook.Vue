@@ -176,6 +176,14 @@ export const useServiceStore = defineStore('service', () => {
     }
   }
 
+  async function getSpotLists(userId:number) {
+    return await apimanager.getSpotLists(userId);
+  }
+
+  async function getSpotListById(id:number) {
+    return await apimanager.getSpotList(id);
+  }
+
   return { 
     AccountDTO, 
     latLng,
@@ -209,5 +217,7 @@ export const useServiceStore = defineStore('service', () => {
     spotFollowToggle,
     userFollowToggle,
     getSpotList,
+    getSpotLists,
+    getSpotListById,
   }
 })

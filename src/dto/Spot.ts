@@ -48,3 +48,10 @@ export const DEFAULT_SPOT: SpotInterface = {
         ]
     }
 }
+
+export interface SpotListDTO {
+    id: number,
+    name: string,
+    timestamp: string,
+    user: number,
+}
