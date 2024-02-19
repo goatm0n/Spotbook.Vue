@@ -55,3 +55,5 @@ export interface SpotListDTO {
     timestamp: string,
     user: number,
 }
+
+export type SpotListItemDTO = any;

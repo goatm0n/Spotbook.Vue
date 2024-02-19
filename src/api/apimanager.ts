@@ -2,7 +2,7 @@ import { ACCOUNTS_API_URL, CLIPS_API_URL, PROFILES_API_URL, SPOTBOOK_API_URL, SP
 import APIClient from "./APIClient"
 import type { AccountUpdateInterface, IAccountCreate } from "@/dto/Account";
 import { DEFAULT_PROFILE, type ProfileInterface } from "@/dto/Profile";
-import type { ClipForm } from "@/dto";
+import type { ClipForm, SpotListItemDTO } from "@/dto";
 import axios from "axios";
 
 function getAxiosConfig() {
@@ -191,6 +191,21 @@ async function getSpotList(id:number) {
     return await APIClient.apiGet(route);
 }
 
+async function createSpotListItem(spotListItem:SpotListItemDTO) {
+    const route = `${SPOTS_API_URL}/create-spotlistitem/`;
+    return await APIClient.apiPost(route, spotListItem, getAxiosConfig())
+}
+
+async function getSpotListItems(userId:number, spotId:number) {
+    const route = `${SPOTS_API_URL}/spotlistitems/${userId}/${spotId}/`;
+    return await APIClient.apiGet(route);
+}
+
+async function deleteSpotListItem(spotListItemId:number) {
+    const route = `${SPOTS_API_URL}/deletespotlistitem/${spotListItemId}/`;
+    return await APIClient.apiDelete(route, getAxiosConfig());
+}
+
 export default {
     getAccountDetail,
     createAccount,
@@ -224,4 +239,7 @@ export default {
     getSpotsUserLikes,
     getSpotLists,
     getSpotList,
+    createSpotListItem,
+    getSpotListItems,
+    deleteSpotListItem,
 }

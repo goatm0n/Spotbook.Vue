@@ -1,11 +1,13 @@
 import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
-import { DEFAULT_ACCOUNT, type AccountDTO, type ProfileInterface, type SpotInterface, type ClipDetail, type ClipForm } from '@/dto';
+import { DEFAULT_ACCOUNT, type AccountDTO, type ProfileInterface, type SpotInterface, type ClipDetail, type ClipForm, type SpotListItemDTO, type SpotListDTO } from '@/dto';
 import { apimanager } from '@/api';
 
 export const useServiceStore = defineStore('service', () => {
   const AccountDTO: Ref<AccountDTO> = ref(DEFAULT_ACCOUNT);
   const latLng = ref();
+  const spotLists: Ref<SpotListDTO[]> = ref([]);
+  const currentSpotListItems: Ref<SpotListItemDTO[]> = ref([]);
 
   function setAccount(account: AccountDTO): void{
     AccountDTO.value = account;
@@ -184,9 +186,23 @@ export const useServiceStore = defineStore('service', () => {
     return await apimanager.getSpotList(id);
   }
 
+  async function createSpotListItem(spotListItem: SpotListItemDTO) {
+    return await apimanager.createSpotListItem(spotListItem);
+  }
+
+  async function getSpotListItems(userId:number, spotId:number) {
+    return await apimanager.getSpotListItems(userId, spotId);
+  }
+
+  async function deleteSpotListItem(spotListItemId:number) {
+    return await apimanager.deleteSpotListItem(spotListItemId);
+  }
+
   return { 
     AccountDTO, 
     latLng,
+    spotLists,
+    currentSpotListItems,
     setAccountDTOById, 
     setAccount, 
     getAccounts,
@@ -219,5 +235,8 @@ export const useServiceStore = defineStore('service', () => {
     getSpotList,
     getSpotLists,
     getSpotListById,
+    createSpotListItem,
+    getSpotListItems,
+    deleteSpotListItem,
   }
 })
