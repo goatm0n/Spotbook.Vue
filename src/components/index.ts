@@ -20,3 +20,6 @@ export { default as ShareButton } from "./ShareButton.vue";
 export { default as LogoutButton } from "./LogoutButton.vue";
 export { default as CoordsButton } from "./CoordsButton.vue";
 export { default as FollowButton } from "./FollowButton.vue";
+export { default as SBModal } from "./SBModal.vue";
+export { default as SpotListDetail } from "./SpotListDetail.vue";
+export { default as SaveSpotListItem } from "./SaveSpotListItem.vue";

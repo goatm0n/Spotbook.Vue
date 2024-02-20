@@ -11,7 +11,8 @@
             <CoordsButton :coords="spot.geometry.coordinates"/>
             <RouterLink :to="{name: 'Upload Clip', params: {spotId: spot.id}}" class="btn btn-sm btn-secondary m-1">
                 Upload Clip
-            </RouterLink>
+            </RouterLink><br>
+            <button class="btn btn-sm btn-secondary" @click="userId ? isModalOpen=true : toast.error('Login')">Save</button>
         </div>
         <div v-else-if="mode==='Create' || mode==='Edit'" >
             <SBDetail :data="spotForm" :errors="errors" />
@@ -29,10 +30,32 @@
             </button>
         </div>
     </div>
+    <SBModal :isOpen="isModalOpen" @modal-close="isModalOpen=false">
+        <template #header>Save Spotlist Item</template>
+        <template #content>
+            <SaveSpotListItem v-if="userId" :user-id="userId" :spot-id="spot.id"/>
+        </template>
+        <template #footer>
+            <SpotListDetail v-if="addNewSpotList" mode="Create" @cancel="addNewSpotList=false"/>
+        </template>
+        <template #buttons>
+            <button v-if="!addNewSpotList" @click="addNewSpotList=true" class="btn btn-sm btn-secondary m-1">Add New Spotlist</button>
+        </template>
+    </SBModal>
 </template>
 
 <script setup lang="ts">
-import { SBDetail, FollowersButton, LikesButton, LikeButton, CoordsButton, FollowButton } from '@/components';
+import { 
+    SBDetail, 
+    FollowersButton, 
+    LikesButton, 
+    LikeButton, 
+    CoordsButton, 
+    FollowButton, 
+    SBModal, 
+    SpotListDetail,
+    SaveSpotListItem,
+} from '@/components';
 import { ref, toRef, type Ref, type ComputedRef, computed } from 'vue';
 import { DEFAULT_SPOT, type SpotGeometry, type SpotInterface, type SpotProperties, type SpotType } from '@/dto';
 import { useServiceStore } from '@/stores';
@@ -41,7 +64,6 @@ import { useForm } from 'vee-validate';
 import { useRoute, useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-import { CreateSpot } from '@/views';
 
 const router = useRouter();
 const route = useRoute();
@@ -63,6 +85,7 @@ const props = withDefaults(defineProps<Props>(), {
 const mode: Ref<Mode> = toRef(props.mode);
 const spotId: Ref<number> = ref(0); 
 const spot: Ref<SpotInterface> = ref(DEFAULT_SPOT);
+const userId: Ref<number|undefined> = ref();
 
 interface SpotForm {
     title: string,
@@ -82,6 +105,8 @@ const [descriptionField] = defineField('description');
 
 const spotTypeChoice: Ref<SpotType> = ref('Street');
 const loading: Ref<boolean> = ref(false);
+const isModalOpen: Ref<boolean> = ref(false);
+const addNewSpotList: Ref<boolean> = ref(false);
 
 const buttonText: ComputedRef<string> = computed(() => {
     return mode.value === 'Create' ? 'Create Spot' : 'Update Spot';
@@ -120,6 +145,7 @@ async function init() {
     } else if (spotId.value > 0) {
         spot.value = await serviceStore.getSpot(spotId.value); 
     }
+    userId.value = await serviceStore.getUserId();
     loading.value = false;
 }
 
