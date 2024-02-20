@@ -206,6 +206,16 @@ async function deleteSpotListItem(spotListItemId:number) {
     return await APIClient.apiDelete(route, getAxiosConfig());
 }
 
+async function createSpotList(name:string) {
+    const route = `${SPOTS_API_URL}/createspotlist/`;
+    return await APIClient.apiPost(route, {name}, getAxiosConfig());
+}
+
+async function deleteSpotList(id:number) {
+    const route = `${SPOTS_API_URL}/deletespotlist/${id}/`;
+    return await APIClient.apiDelete(route, getAxiosConfig());
+}
+
 export default {
     getAccountDetail,
     createAccount,
@@ -242,4 +252,6 @@ export default {
     createSpotListItem,
     getSpotListItems,
     deleteSpotListItem,
+    createSpotList,
+    deleteSpotList,
 }

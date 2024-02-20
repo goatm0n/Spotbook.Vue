@@ -198,6 +198,14 @@ export const useServiceStore = defineStore('service', () => {
     return await apimanager.deleteSpotListItem(spotListItemId);
   }
 
+  async function createSpotList(name:string) {
+    return await apimanager.createSpotList(name);
+  }
+
+  async function deleteSpotList(id:number) {
+    return await apimanager.deleteSpotList(id);
+  }
+
   return { 
     AccountDTO, 
     latLng,
@@ -238,5 +246,7 @@ export const useServiceStore = defineStore('service', () => {
     createSpotListItem,
     getSpotListItems,
     deleteSpotListItem,
+    createSpotList,
+    deleteSpotList,
   }
 })

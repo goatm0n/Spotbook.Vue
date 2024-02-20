@@ -11,6 +11,9 @@
       <li v-if="userId && !props.routeNames" class="nav-item">
         <RouterLink :to="`/spotfeed/${userId}`" class="nav-link">Spotfeed</RouterLink>
       </li>
+      <li v-if="userId && !props.routeNames" class="nav-item">
+        <RouterLink :to="`/spotlists`" class="nav-link">Spotlists</RouterLink>
+      </li>
     </ul>
   </div>
 </template>

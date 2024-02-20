@@ -1,6 +1,6 @@
 <template>
     <div style="margin: auto; align-items: center;">
-        <SBDataTable :data="displayData">
+        <SBDataTable :key="serviceStore.spotLists.length" :data="displayData">
             <template #row="slotprops">
 
                 <button 
@@ -29,7 +29,7 @@ import { SBDataTable } from '.';
 import type { SpotListDTO, SpotListItemDTO } from '@/dto';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-import type { AxiosError } from 'axios';
+
 const serviceStore = useServiceStore();
 interface Props {
     spotId: number,

@@ -10,15 +10,17 @@ import { SBNavBar } from '@/components';
 import { Spots } from '@/views';
 import type { SpotInterface, SpotListDTO } from '@/dto';
 import { useServiceStore } from '@/stores';
-import { ref, watch, type Ref } from 'vue';
+import { ref, watch, type Ref, toRef } from 'vue';
 
 const serviceStore = useServiceStore();
 interface Props {
     userId: string | number,
+    spotListName?: string,
 }
-const props = defineProps<Props>();
-
-const spotListName = ref('following');
+const props = withDefaults(defineProps<Props>(), {
+    spotListName: 'following'
+});
+const spotListName = toRef(props.spotListName);
 const loading: Ref<boolean> = ref(false);
 const spots: Ref<SpotInterface[]|undefined> = ref();
 const spotLists: Ref<SpotListDTO[]|undefined> = ref()
