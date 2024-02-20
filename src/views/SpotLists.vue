@@ -10,11 +10,13 @@
                 </button>
             </template>
         </SBDataTable>    
+        <button v-if="!addNewSpotList" class="btn btn-sm btn-secondary" @click="addNewSpotList = true">Add New SpotList</button>
+        <SpotListDetail v-if="addNewSpotList" mode="Create" @cancel="addNewSpotList = false"/>
     </div>
 </template>
 
 <script setup lang="ts">
-import { SBDataTable } from "@/components";
+import { SBDataTable, SpotListDetail } from "@/components";
 import type { SpotListDTO } from "@/dto";
 import { useServiceStore } from "@/stores";
 import { type ComputedRef, computed, ref, type Ref } from "vue";
@@ -30,6 +32,7 @@ const displayData: ComputedRef<any[]> = computed(() => {
 });
 const userId = ref();
 const loading: Ref<boolean> = ref(false);
+const addNewSpotList: Ref<boolean> = ref(false);
 async function init() {
     loading.value = true;
     userId.value = await serviceStore.getUserId();
