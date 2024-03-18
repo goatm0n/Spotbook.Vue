@@ -2,12 +2,12 @@
     <div v-if="!loading" style="margin: auto; text-align: center;">
         <SBNavBar v-if="navbar" :routeNames="['List', 'Table']" :emit="true" @emitRouteName="handleEmitRouteName"/>
         <AccountList v-if="displayMode === 'List'" :accounts="accounts" :editMode="editMode"/>
-        <UserList v-if="displayMode === 'Table'" :data="accounts"/>
+        <SBUserTable v-if="displayMode === 'Table'" :data="accounts"/>
     </div>
 </template>
 
 <script setup lang="ts">
-import { AccountList, SBDataTable, SBNavBar, UserList } from "@/components";
+import { AccountList, SBNavBar, SBUserTable } from "@/components";
 import { type AccountInterface, DEFAULT_ACCOUNT } from "@/dto/Account";
 import { ref, toRef, type Ref, computed } from "vue";
 import { useServiceStore } from "@/stores";

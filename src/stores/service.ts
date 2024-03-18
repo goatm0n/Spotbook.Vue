@@ -2,6 +2,7 @@ import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { DEFAULT_ACCOUNT, type AccountDTO, type ProfileInterface, type SpotInterface, type ClipDetail, type ClipForm, type SpotListItemDTO, type SpotListDTO } from '@/dto';
 import { apimanager } from '@/api';
+import type { SpotListUser } from '@/dto/Spot';
 
 export const useServiceStore = defineStore('service', () => {
   const AccountDTO: Ref<AccountDTO> = ref(DEFAULT_ACCOUNT);
@@ -205,6 +206,29 @@ export const useServiceStore = defineStore('service', () => {
   async function deleteSpotList(id:number) {
     return await apimanager.deleteSpotList(id);
   }
+
+  async function getSpotListUsers(spotlistId:number) {
+    try {
+      const res = await apimanager.getSpotListUsers(spotlistId);
+      return res.data; 
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async function createSpotListUser(userId:number, spotListId:number): Promise<SpotListUser> {
+    try {
+      const res = await apimanager.createSpotListUser(userId, spotListId);
+      return res.data
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async function deleteSpotListUser(userId:number) {
+    return await apimanager.deleteSpotListUser(userId);
+  }
+
   async function getUsersLike(username:string): Promise<AccountDTO[]> {
     try {
       let res = await apimanager.getUsersLike(username);
@@ -256,6 +280,9 @@ export const useServiceStore = defineStore('service', () => {
     deleteSpotListItem,
     createSpotList,
     deleteSpotList,
+    getSpotListUsers,
+    createSpotListUser,
+    deleteSpotListUser,
     getUsersLike,
   }
 })

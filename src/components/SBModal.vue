@@ -25,8 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref } from 'vue';
-
 interface Props {
     isOpen?: boolean,
 }
@@ -34,8 +32,6 @@ const props = withDefaults(defineProps<Props>(), {
     isOpen: false,
 });
 const emit = defineEmits(['modal-close']);
-
-const open: Ref<boolean> = ref(false);
 </script>
 
 <style scoped>

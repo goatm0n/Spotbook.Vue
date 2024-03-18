@@ -1,6 +1,22 @@
 import type { RouteRecordRaw } from "vue-router";
 import { AccountDetail, ProfileDetail, SpotMap, LoginForm, } from "@/components";
-import { Accounts, Followers, Profiles, Spot, Spots, CreateSpot, ClipView, SpotLikes, ClipLikes, Profile, UploadClip, Users, SpotFeed, SpotLists } from "@/views";
+import { 
+    Accounts, 
+    Followers, 
+    Profiles, 
+    Spot, 
+    Spots, 
+    CreateSpot, 
+    ClipView, 
+    SpotLikes, 
+    ClipLikes, 
+    Profile, 
+    UploadClip, 
+    Users, 
+    SpotFeed, 
+    SpotLists, 
+    SpotListUsers, 
+} from "@/views";
 
 export const PUBLIC_ROUTES: RouteRecordRaw[] = [
     {
@@ -134,5 +150,11 @@ export const PUBLIC_ROUTES: RouteRecordRaw[] = [
         name: 'Spot Lists',
         path: '/spotlists',
         component: SpotLists,
+    },
+    {
+        name: 'Spot List Users',
+        path: '/spotlistusers/:spotlistId',
+        component: SpotListUsers,
+        props: true,
     },
 ]

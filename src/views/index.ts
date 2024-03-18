@@ -13,3 +13,4 @@ export { default as UploadClip } from "./UploadClip.vue";
 export { default as Users } from "./Users.vue";
 export { default as SpotFeed } from "./SpotFeed.vue";
 export { default as SpotLists } from "./SpotLists.vue";
+export { default as SpotListUsers } from "./SpotListUsers.vue";
