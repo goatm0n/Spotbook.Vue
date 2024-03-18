@@ -205,6 +205,14 @@ export const useServiceStore = defineStore('service', () => {
   async function deleteSpotList(id:number) {
     return await apimanager.deleteSpotList(id);
   }
+  async function getUsersLike(username:string): Promise<AccountDTO[]> {
+    try {
+      let res = await apimanager.getUsersLike(username);
+      return res.data
+    } catch (error) {
+      throw error
+    }
+  }
 
   return { 
     AccountDTO, 
@@ -248,5 +256,6 @@ export const useServiceStore = defineStore('service', () => {
     deleteSpotListItem,
     createSpotList,
     deleteSpotList,
+    getUsersLike,
   }
 })
