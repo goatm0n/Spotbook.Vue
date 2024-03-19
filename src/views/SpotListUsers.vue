@@ -12,7 +12,7 @@
                 <h1>Add SpotListUser</h1>
             </template>
             <template #content>
-                <SBUserSearch>
+                <SBUserSearch :filter="searchFilter">
                     <template #buttons="{id}">
                         <button @click.prevent="addSpotListUser(id)" class="btn btn-sm btn-success">
                             Add User
@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
 import { SBUserTable, SBModal, SBUserSearch } from '@/components';
+import type { AccountDTO } from '@/dto/Account';
 import type { SpotListUser } from '@/dto/Spot';
 import { useServiceStore } from '@/stores';
 import { computed, ref, type Ref } from 'vue';
@@ -51,6 +52,10 @@ const userTableData = computed(() => {
         }
     });
 })
+
+function searchFilter(account: AccountDTO): boolean {
+    return !spotlistusers.value.find((x) => x.user === account.id);
+}
 
 async function removeSpotListUser(userId:number) {
     try {

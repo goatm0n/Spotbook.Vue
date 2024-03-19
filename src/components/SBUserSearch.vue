@@ -9,7 +9,7 @@
      @click.prevent="getUsersLike(username)"
      class="btn btn-sm btn-primary"
     >Search</button>
-    <SBUserTable :data="users">
+    <SBUserTable :data="displayUsers">
         <template #buttons="{id}">
             <slot name="buttons" v-bind="{id}"></slot>
         </template>
@@ -20,13 +20,21 @@
 import type { AccountDTO } from '@/dto';
 import { useServiceStore } from '@/stores';
 import type { AxiosError } from 'axios';
-import { ref, type Ref } from 'vue';
+import { computed, ref, type Ref } from 'vue';
 import { SBTextbox, SBUserTable } from "@/components";
+
+interface Props {
+    filter?(account: AccountDTO): boolean,
+}
+const props = defineProps<Props>();
 
 const serviceStore = useServiceStore();
 
 const username = ref("");
 const users: Ref<AccountDTO[]> = ref([]);
+const displayUsers: Ref<AccountDTO[]> = computed(() => {
+    return props.filter ? users.value.filter((x: AccountDTO) => props.filter? props.filter(x) : false) : users.value;
+});
 const errorText: Ref<string|undefined> = ref();
 
 async function getUsersLike(username: string) {
