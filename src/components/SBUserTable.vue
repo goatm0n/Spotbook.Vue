@@ -1,10 +1,18 @@
 <template>
     <SBDataTable :data="displayData">
-            <template #row="{id}">
-                <RouterLink v-if="id" :to="{ name: 'Profile', params: {userId: id}}" class="btn btn-sm btn-primary">
-                    View Profile
-                </RouterLink>
-            </template>
+        <template #row="{id}">
+            <RouterLink 
+                v-if="id" 
+                :to="{ 
+                    name: 'Profile', 
+                    params: {userId: id}
+                }" 
+                class="btn btn-sm btn-primary"
+            >
+                View Profile
+            </RouterLink>
+            <slot name="buttons" v-bind="{id}"></slot>
+        </template>
     </SBDataTable>
 </template>
 

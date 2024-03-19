@@ -216,6 +216,30 @@ async function deleteSpotList(id:number) {
     return await APIClient.apiDelete(route, getAxiosConfig());
 }
 
+async function getSpotListUsers(spotlistId:number) {
+    const route = `${SPOTS_API_URL}/spotlistusers/${spotlistId}/`;
+    return await APIClient.apiGet(route);
+}
+
+async function createSpotListUser(userId:number, spotListId:number) {
+    const route = `${SPOTS_API_URL}/createspotlistuser/`;
+    const payload = {
+        user: userId,
+        spotlist: spotListId
+    }
+    return await APIClient.apiPost(route, payload, getAxiosConfig());
+}
+
+async function deleteSpotListUser(userId:number) {
+    const route = `${SPOTS_API_URL}/deletespotlistuser/${userId}/`;
+    return await APIClient.apiDelete(route, getAxiosConfig());
+}
+
+async function getUsersLike(username:string) {
+    const route = `${ACCOUNTS_API_URL}/userslike/${username}`;
+    return await APIClient.apiGet(route);
+}
+
 export default {
     getAccountDetail,
     createAccount,
@@ -254,4 +278,8 @@ export default {
     deleteSpotListItem,
     createSpotList,
     deleteSpotList,
+    getSpotListUsers,
+    createSpotListUser,
+    deleteSpotListUser,
+    getUsersLike,
 }

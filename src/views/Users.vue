@@ -1,11 +1,11 @@
 <template>
     <div v-if="!loading" style="margin: auto; text-align: center;">
-        <UserList :data="data"/>
+        <SBUserTable :data="data"/>
     </div>
 </template>
 
 <script setup lang="ts">
-import { UserList } from '@/components';
+import { SBUserTable } from '@/components';
 import { useServiceStore } from '@/stores';
 import { ref, type Ref } from 'vue';
 

@@ -2,6 +2,9 @@
     <div style="margin: auto; align-items: center;">
         <SBDataTable :key="serviceStore.spotLists.length" :data="displayData">
             <template #row="slotprops">
+                <RouterLink class="btn btn-sm btn-primary" :to="{name:'Spot List Users', params:{ spotlistId: serviceStore.spotLists.find(x => x.name == slotprops.name)?.id}}">
+                    Users
+                </RouterLink>
                 <RouterLink class="btn btn-sm btn-secondary" :to="{name:'Spot Feed Named', params:{userId: userId, spotListName: slotprops.name}}">
                     View
                 </RouterLink>

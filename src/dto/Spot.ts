@@ -57,3 +57,11 @@ export interface SpotListDTO {
 }
 
 export type SpotListItemDTO = any;
+
+export interface SpotListUser {
+  user: number,
+  spotlist: number,
+  timestamp: string,
+  id: number,
+  username?: string,
+}
