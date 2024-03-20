@@ -15,8 +15,10 @@ import { ref, type Ref } from 'vue';
 import { useServiceStore } from '@/stores';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import { useRouter } from 'vue-router';
 
 const serviceStore = useServiceStore();
+const router = useRouter();
 
 const validationSchema = object({
     email: string().required().email(),
@@ -47,6 +49,7 @@ async function login() {
             sessionStorage.setItem('email', emailField.value);
             sessionStorage.removeItem('userId');
             serviceStore.getUserId();
+            await router.push('/')
             toast.success("Login Successful!");
         } catch (err) {
             console.log(err);

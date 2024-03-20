@@ -53,12 +53,15 @@ import {
   type AccountUpdateInterface,
   EAccountDetailMode as EMode,
 } from "../dto";
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { apimanager } from '@/api';
 import { useForm } from "vee-validate";
 import { object, string } from "yup";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const route = useRoute();
+const router = useRouter();
 const serviceStore = useServiceStore();
 
 type Mode = EMode;
@@ -165,15 +168,17 @@ async function saveEdits() {
   }
 }
 
-function createAccount() {
+async function createAccount() {
   const payload: AccountCreateDTO = {
     username: username.value,
     email: email.value,
     password: password.value,
   }
-  apimanager.createAccount(payload).then((res) => {
-    console.log(res);
-  })
+  const res = await serviceStore.createAccount(payload);
+  if (res.status===201) {
+    await router.push('/login');
+    toast.success("Account Created");
+  }
 }
 
 function editAccount() {
