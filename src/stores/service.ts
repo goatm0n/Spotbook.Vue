@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { DEFAULT_ACCOUNT, type AccountDTO, type ProfileInterface, type SpotInterface, type ClipDetail, type ClipForm, type SpotListItemDTO, type SpotListDTO } from '@/dto';
 import { apimanager } from '@/api';
 import type { SpotListUser } from '@/dto/Spot';
+import type { IAccountCreate } from '@/dto/Account';
 
 export const useServiceStore = defineStore('service', () => {
   const AccountDTO: Ref<AccountDTO> = ref(DEFAULT_ACCOUNT);
@@ -27,6 +28,10 @@ export const useServiceStore = defineStore('service', () => {
   async function getAccounts(): Promise<AccountDTO[]> {
     const res = await apimanager.getAccounts();
     return res.data;
+  }
+
+  async function createAccount(account:IAccountCreate) {
+    return await apimanager.createAccount(account);
   }
 
   async function getProfiles(): Promise<ProfileInterface[]> {
@@ -246,6 +251,7 @@ export const useServiceStore = defineStore('service', () => {
     setAccountDTOById, 
     setAccount, 
     getAccounts,
+    createAccount,
     getProfiles, 
     getProfile ,
     updateProfile,
