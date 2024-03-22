@@ -47,7 +47,7 @@ async function handleAddSpotList() {
     if (isValid) {
         const res = await serviceStore.createSpotList(name.value);
         console.log(res)
-        if (res.status===201) {
+        if (res?.status===201) {
             serviceStore.spotLists.push(res.data);
             mode.value = 'Hidden';
         }

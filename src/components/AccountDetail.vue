@@ -175,7 +175,7 @@ async function createAccount() {
     password: password.value,
   }
   const res = await serviceStore.createAccount(payload);
-  if (res.status===201) {
+  if (res?.status===201) {
     await router.push('/login');
     toast.success("Account Created");
   }

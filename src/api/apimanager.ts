@@ -1,9 +1,9 @@
 import { ACCOUNTS_API_URL, CLIPS_API_URL, PROFILES_API_URL, SPOTBOOK_API_URL, SPOTS_API_URL } from "./APIRouteManager";
-import APIClient from "./APIClient"
+import APIClient, { type AxiosErrorHandle } from "./APIClient"
 import type { AccountUpdateInterface, IAccountCreate } from "@/dto/Account";
-import { DEFAULT_PROFILE, type ProfileInterface } from "@/dto/Profile";
+import { type ProfileInterface } from "@/dto/Profile";
 import type { ClipForm, SpotListItemDTO } from "@/dto";
-import axios from "axios";
+import { AxiosError } from "axios";
 
 function getAxiosConfig() {
     const authToken: string = String('Bearer ').concat(sessionStorage.getItem('access') as string)
@@ -30,9 +30,9 @@ async function getAccountDetail(id: number) {
     return await APIClient.apiGet(route);
 }
 
-async function createAccount(account: IAccountCreate) {
+async function createAccount(account: IAccountCreate, axiosErrorHandle?: AxiosErrorHandle) {
     const route = ACCOUNTS_API_URL + "/create/";
-    return await APIClient.apiPost(route, account);
+    return await APIClient.apiPost(route, account, axiosErrorHandle);
 }
 
 async function updateAccount(account: AccountUpdateInterface) {
@@ -86,10 +86,10 @@ async function getUsername(userId:number) {
     return await APIClient.apiGet(route);
 }
 
-async function createSpot(spot: any) {
+async function createSpot(spot: any, axiosErrorHandle?: AxiosErrorHandle) {
     const route = SPOTS_API_URL + '/create/';
     const axiosConfig = getAxiosConfig();
-    return await APIClient.apiPost(route, spot, axiosConfig);
+    return await APIClient.apiPost(route, spot, axiosConfig, axiosErrorHandle);
 }
 
 async function getClip(clipId: number) {
@@ -131,10 +131,10 @@ async function getSpotClipFeed(spotId: number) {
     return await APIClient.apiGet(route);
 }
 
-async function uploadClip(data: ClipForm) {
+async function uploadClip(data: ClipForm, axiosErrorHandle?: AxiosErrorHandle) {
     const route = CLIPS_API_URL + '/create/';
     const axiosConfig = getFileUploadAxiosConfig();
-    return await APIClient.apiPost(route, data, axiosConfig);
+    return await APIClient.apiPost(route, data, axiosConfig, axiosErrorHandle);
 }
 
 async function getToken(payload: any) {

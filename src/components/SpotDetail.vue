@@ -56,7 +56,7 @@ import {
     SpotListDetail,
     SaveSpotListItem,
 } from '@/components';
-import { ref, toRef, type Ref, type ComputedRef, computed } from 'vue';
+import { ref, toRef, type Ref, type ComputedRef, computed, inject } from 'vue';
 import { DEFAULT_SPOT, type SpotGeometry, type SpotInterface, type SpotProperties, type SpotType } from '@/dto';
 import { useServiceStore } from '@/stores';
 import { object, string } from 'yup';
@@ -64,6 +64,8 @@ import { useForm } from 'vee-validate';
 import { useRoute, useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import regex from '@/regex';
+import type { AxiosErrorHandle } from '@/api/APIClient';
 
 const router = useRouter();
 const route = useRoute();
@@ -96,8 +98,8 @@ const spotForm: Ref<SpotForm> = ref({
     description: "",
 });
 const validationSchema = object({
-    title: string().required().max(250),
-    description: string().required(),
+    title: string().required().max(250).matches(regex.simpleText),
+    description: string().required().matches(regex.simpleText),
 });
 const { defineField, validate, errors } = useForm({validationSchema});
 const [titleField] = defineField('title');
@@ -178,6 +180,7 @@ async function updateSpot() {
     throw new Error("Not Implemented");
 }
 
+const axiosErrorHandle = inject<AxiosErrorHandle>('axiosErrorHandle');
 async function createSpot() {
     const newSpot = {
         type: 'Feature',
@@ -192,12 +195,12 @@ async function createSpot() {
         },
     }
     try {
-        const res = await serviceStore.createSpot(newSpot);    
-        if (res.status == 201) {
-            toast.success('Success!')
+        const res = await serviceStore.createSpot(newSpot, axiosErrorHandle);    
+        if (res?.status == 201) {
+            toast.success('Success!');
+            router.replace(`/spot/${res.data?.id}`);
         }
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
         toast.error("Failed To Create Spot");
     }
 }
