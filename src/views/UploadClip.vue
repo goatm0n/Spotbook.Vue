@@ -12,14 +12,19 @@
 </template>
 
 <script setup lang="ts">
+import type { AxiosErrorHandle } from '@/api/APIClient';
 import { SBDetail, ImageUpload } from '@/components';
 import type { ClipForm } from '@/dto';
 import { useServiceStore } from '@/stores';
 import { useForm } from 'vee-validate';
-import { reactive, ref, watch, type Ref } from 'vue';
+import { reactive, ref, type Ref, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import { object, string } from 'yup';
 
 const serviceStore = useServiceStore();
+const router = useRouter();
 
 interface Props {
     spotId: number | string,
@@ -39,6 +44,7 @@ const data = reactive({
 const image = ref();
 const imageFile: Ref<File | undefined> = ref()
 
+const axiosErrorHandle = inject<AxiosErrorHandle>('axiosErrorHandle');
 async function handleUpload() {
     if (textContent.value != undefined) {
         textContent.value = textContent.value.trim();
@@ -53,7 +59,15 @@ async function handleUpload() {
             textContent: textContent.value,
             image: imageFile.value 
         }
-        await serviceStore.uploadClip(postData)
+        try {
+            const res = await serviceStore.uploadClip(postData, axiosErrorHandle);
+            if (res?.status==201) {
+                await router.push(`/clip/${res?.data.id}`);
+                toast.success('Success!');
+            }
+        } catch {
+            toast.error('Something Went Wrong');
+        }
     }
 }
 

@@ -4,6 +4,7 @@ import { DEFAULT_ACCOUNT, type AccountDTO, type ProfileInterface, type SpotInter
 import { apimanager } from '@/api';
 import type { SpotListUser } from '@/dto/Spot';
 import type { IAccountCreate } from '@/dto/Account';
+import type { AxiosErrorHandle } from '@/api/APIClient';
 
 export const useServiceStore = defineStore('service', () => {
   const AccountDTO: Ref<AccountDTO> = ref(DEFAULT_ACCOUNT);
@@ -77,8 +78,8 @@ export const useServiceStore = defineStore('service', () => {
     return res.data;
   }
 
-  async function createSpot(spot: any) {
-    return await apimanager.createSpot(spot);
+  async function createSpot(spot: any, axiosErrorHandle?: AxiosErrorHandle) {
+    return await apimanager.createSpot(spot, axiosErrorHandle);
   }
 
   async function getClip(clipId: number) {
@@ -121,13 +122,13 @@ export const useServiceStore = defineStore('service', () => {
     return res.data;
   }
 
-  async function uploadClip(data: ClipForm) {
-    return await apimanager.uploadClip(data);
+  async function uploadClip(data: ClipForm, axiosErrorHandle?: AxiosErrorHandle) {
+    return await apimanager.uploadClip(data, axiosErrorHandle);
   }
 
   async function login(payload: any) {
     const res = await apimanager.getToken(payload);
-    if (res.status == 200) {
+    if (res?.status == 200) {
       sessionStorage.setItem('access', res.data.access);
       sessionStorage.setItem('refresh', res.data.refresh)
     }
@@ -224,7 +225,7 @@ export const useServiceStore = defineStore('service', () => {
   async function createSpotListUser(userId:number, spotListId:number): Promise<SpotListUser> {
     try {
       const res = await apimanager.createSpotListUser(userId, spotListId);
-      return res.data
+      return res?.data
     } catch (error) {
       throw error
     }

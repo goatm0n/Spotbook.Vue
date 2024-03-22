@@ -1,6 +1,6 @@
 <template>
     <div style="margin: auto; text-align: center;">
-        <SBNavBar :routeNames="['List', 'Table', 'Clips']" :emit="true" @emitRouteName="handleEmitRouteName"/>
+        <SBNavBar :routeNames="['List', 'Table', 'Clips', 'Map']" :emit="true" @emitRouteName="handleEmitRouteName"/>
         <div v-if="loading"><h2>LOADING</h2></div>
         <div v-if="!loading && displayMode === 'List'" v-for="spot in spots" style="border: 1px solid grey; border-radius: 16px; width: max-content; margin: auto; padding: 0.01em 16px;">
             <SpotDetail :spot="spot" />
@@ -13,6 +13,7 @@
             </template>
         </SBDataTable>
         <ClipFeed v-if="!loading && displayMode === 'Clips'" :spotIdList="spotIdList" mode="Spot"/>
+        <SpotMap v-if="displayMode==='Map'" :spots="spots"/>
     </div>
 </template>
 
@@ -20,7 +21,7 @@
 import { DEFAULT_SPOT, type SpotInterface } from '@/dto';
 import { useServiceStore } from '@/stores';
 import { computed, ref, toRef, type Ref, type ComputedRef } from 'vue';
-import { ClipFeed, SBDataTable, SBNavBar, SpotDetail } from '@/components';
+import { ClipFeed, SBDataTable, SBNavBar, SpotDetail, SpotMap } from '@/components';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -32,8 +33,8 @@ interface Props {
 const props = defineProps<Props>();
 const spots: Ref<SpotInterface[]> = props.spots ? toRef(props.spots) : ref([DEFAULT_SPOT]);
 
-type DisplayMode = 'Table' | 'List' | 'Clips';
-const displayMode: Ref<DisplayMode> = ref('List');
+type DisplayMode = 'Table' | 'List' | 'Clips' | 'Map';
+const displayMode: Ref<DisplayMode> = ref('Map');
 const loading: Ref<boolean> = ref(false);
 
 const spotIdList: ComputedRef<number[]> = computed(() => {

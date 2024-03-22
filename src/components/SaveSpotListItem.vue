@@ -93,7 +93,7 @@ async function createSpotListItem(spotListId:number) {
     }
     try {
         const res = await serviceStore.createSpotListItem(spotListItem);
-        if (res.status === 201) {
+        if (res?.status === 201) {
             toast.success('Saved')
             serviceStore.currentSpotListItems.push(res.data);
         }

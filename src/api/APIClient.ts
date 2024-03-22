@@ -1,11 +1,23 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+
+export interface AxiosErrorHandle {
+    (axiosError: AxiosError): Promise<void>
+}
 
 async function apiGet(route: string) {
     return await axios.get(route);
 }
 
-async function apiPost(route:string, payload: any, axiosConfig?: any) {
-    return await axios.post(route, payload, axiosConfig);
+async function apiPost(route:string, payload: any, axiosConfig?: any, axiosErrorHandle?: AxiosErrorHandle) {
+    try {
+        return await axios.post(route, payload, axiosConfig);
+    } catch (error) {
+        if (axiosErrorHandle) {
+            axiosErrorHandle(error as AxiosError);
+        } else {
+            throw error
+        }
+    }    
 }
 
 async function apiPut(route:string, payload: any, axiosConfig?: any) {
