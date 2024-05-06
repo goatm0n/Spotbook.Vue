@@ -1,6 +1,6 @@
 <template>
     <div style="height:100vh; width:100%">
-    <LMap 
+    <LMap
         ref="map" 
         v-model:zoom="zoom" 
         :center="[54.604429050318664, -5.924117259791455]"
@@ -20,6 +20,7 @@
                 spot.geometry.coordinates[0], 
                 spot.geometry.coordinates[1]
             ]"
+            :icon="getLeafletIconOrDefault(spot.type)"
         >
             <LPopup>
                 <RouterLink :to="{name: 'Spot', params: {spotId: spot.id}}">
@@ -67,10 +68,13 @@ import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LPopup } from "@vue-leaflet/vue-leaflet";
 import { ref, type Ref } from "vue";
 import { useServiceStore } from "@/stores";
-import type { SpotInterface } from "@/dto";
-import type { SpotDetail } from "@/components";
+import type { SpotInterface } from "@/dto/Spot";
+import { useSpotMapIcons } from "@/composables/useIcons";
 
 const serviceStore = useServiceStore();
+const {
+    getLeafletIconOrDefault,
+} = useSpotMapIcons();
 
 interface Props {
     spots?: SpotInterface[],

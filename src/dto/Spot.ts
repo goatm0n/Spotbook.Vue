@@ -65,3 +65,8 @@ export interface SpotListUser {
   id: number,
   username?: string,
 }
+
+export interface SpotMapIcon {
+    iconUrl: string,
+    name: string,
+}
