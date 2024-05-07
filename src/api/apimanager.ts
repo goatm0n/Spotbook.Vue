@@ -240,6 +240,11 @@ async function getUsersLike(username:string) {
     return await APIClient.apiGet(route);
 }
 
+async function getSpotMapIconList() {
+    const route = `${SPOTS_API_URL}/spotmapiconlist/`;
+    return await APIClient.apiGet(route);
+}
+
 export default {
     getAccountDetail,
     createAccount,
@@ -282,4 +287,5 @@ export default {
     createSpotListUser,
     deleteSpotListUser,
     getUsersLike,
+    getSpotMapIconList,
 }
