@@ -20,7 +20,7 @@
                 spot.geometry.coordinates[0], 
                 spot.geometry.coordinates[1]
             ]"
-            :icon="getLeafletIconOrDefault(spot.type)"
+            :icon="getLeafletIconOrDefault(spot.properties.spotType)"
         >
             <LPopup>
                 <RouterLink :to="{name: 'Spot', params: {spotId: spot.id}}">
