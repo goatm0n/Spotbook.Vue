@@ -1,6 +1,6 @@
 import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
-import { DEFAULT_ACCOUNT, type AccountDTO, type ProfileInterface, type SpotInterface, type ClipDetail, type ClipForm, type SpotListItemDTO, type SpotListDTO } from '@/dto';
+import { DEFAULT_ACCOUNT, type AccountDTO, type ProfileInterface, type SpotInterface, type ClipDetail, type ClipForm, type SpotListItemDTO, type SpotListDTO, type SBLoginFormDTO } from '@/dto';
 import { apimanager } from '@/api';
 import type { SpotListUser } from '@/dto/Spot';
 import type { IAccountCreate } from '@/dto/Account';
@@ -126,14 +126,6 @@ export const useServiceStore = defineStore('service', () => {
     return await apimanager.uploadClip(data, axiosErrorHandle);
   }
 
-  async function login(payload: any) {
-    const res = await apimanager.getToken(payload);
-    if (res?.status == 200) {
-      sessionStorage.setItem('access', res.data.access);
-      sessionStorage.setItem('refresh', res.data.refresh)
-    }
-  }
-
   async function getUserId(): Promise<number|undefined> {
     const ssUserId: string | null = sessionStorage.getItem('userId');
     const ssEmail: string | null = sessionStorage.getItem('email');
@@ -149,6 +141,17 @@ export const useServiceStore = defineStore('service', () => {
       }
     }
     return undefined
+  }
+
+  async function login(payload: SBLoginFormDTO) {
+    const res = await apimanager.getToken(payload);
+    if (res?.status == 200) {
+      sessionStorage.setItem('access', res.data.access);
+      sessionStorage.setItem('refresh', res.data.refresh);
+      sessionStorage.setItem('email', payload.email);
+      sessionStorage.removeItem('userId');
+      await getUserId();
+    }
   }
 
   async function clipLikeToggle(clipId:number) {

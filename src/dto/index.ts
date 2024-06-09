@@ -7,3 +7,4 @@ export{ type ProfileInterface, DEFAULT_PROFILE, EProfileDetailMode } from "./Pro
 export type { SpotInterface, SpotGeometry, SpotProperties, SpotType, SpotListDTO, SpotListItemDTO } from "./Spot";
 export { DEFAULT_SPOT } from "./Spot";
 export type { ClipInterface, ClipDetail, ClipForm } from "./Clip";
+export * from "./SBLoginFormDTO";
