@@ -1,5 +1,5 @@
 <template>
-    <SBDataTable :data="displayData">
+    <GTDataTable :data="displayData">
         <template #row="{id}">
             <RouterLink 
                 v-if="id" 
@@ -13,12 +13,12 @@
             </RouterLink>
             <slot name="buttons" v-bind="{id}"></slot>
         </template>
-    </SBDataTable>
+    </GTDataTable>
 </template>
 
 <script setup lang="ts">
-import { SBDataTable } from '@/components';
-import { computed, ref, toRef, type Ref } from 'vue';
+import { GTDataTable } from '@goatm0n/goattools.vue.library.components';
+import { computed } from 'vue';
 interface Props {
     data: any[],
 }

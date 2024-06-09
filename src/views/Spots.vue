@@ -5,13 +5,13 @@
         <div v-if="!loading && displayMode === 'List'" v-for="spot in spots" style="border: 1px solid grey; border-radius: 16px; width: max-content; margin: auto; padding: 0.01em 16px;">
             <SpotDetail :spot="spot" />
         </div>
-        <SBDataTable v-if="!loading && displayMode === 'Table'" :data="displayData">
+        <GTDataTable v-if="!loading && displayMode === 'Table'" :data="displayData">
             <template #row=slotprops>
                 <RouterLink class="btn btn-sm btn-primary" :to="`/spot/${slotprops.id}`">
                     Visit Spot 
                 </RouterLink>
             </template>
-        </SBDataTable>
+        </GTDataTable>
         <ClipFeed v-if="!loading && displayMode === 'Clips'" :spotIdList="spotIdList" mode="Spot"/>
         <SpotMap v-if="displayMode==='Map'" :spots="spots"/>
     </div>
@@ -21,8 +21,9 @@
 import { DEFAULT_SPOT, type SpotInterface } from '@/dto';
 import { useServiceStore } from '@/stores';
 import { computed, ref, toRef, type Ref, type ComputedRef } from 'vue';
-import { ClipFeed, SBDataTable, SBNavBar, SpotDetail, SpotMap } from '@/components';
+import { ClipFeed, SBNavBar, SpotDetail, SpotMap } from '@/components';
 import { useRouter } from 'vue-router';
+import { GTDataTable } from '@goatm0n/goattools.vue.library.components';
 
 const router = useRouter();
 const serviceStore = useServiceStore();

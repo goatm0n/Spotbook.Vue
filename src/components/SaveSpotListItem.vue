@@ -1,6 +1,6 @@
 <template>
     <div style="margin: auto; align-items: center;">
-        <SBDataTable :key="serviceStore.spotLists.length" :data="displayData">
+        <GTDataTable :key="serviceStore.spotLists.length" :data="displayData">
             <template #row="slotprops">
 
                 <button 
@@ -18,14 +18,14 @@
                     Save                    
                 </button>
             </template>
-        </SBDataTable>        
+        </GTDataTable>        
     </div>
 </template>
 
 <script setup lang="ts">
 import { useServiceStore } from '@/stores';
 import { computed, ref, type ComputedRef, type Ref } from 'vue';
-import { SBDataTable } from '.';
+import { GTDataTable } from '@goatm0n/goattools.vue.library.components';
 import type { SpotListDTO, SpotListItemDTO } from '@/dto';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';

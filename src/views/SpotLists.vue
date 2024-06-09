@@ -1,6 +1,6 @@
 <template>
     <div style="margin: auto; align-items: center;">
-        <SBDataTable :key="serviceStore.spotLists.length" :data="displayData">
+        <GTDataTable :key="serviceStore.spotLists.length" :data="displayData">
             <template #row="slotprops">
                 <RouterLink class="btn btn-sm btn-primary" :to="{name:'Spot List Users', params:{ spotlistId: serviceStore.spotLists.find(x => x.name == slotprops.name)?.id}}">
                     Users
@@ -12,16 +12,17 @@
                     Delete
                 </button>
             </template>
-        </SBDataTable>    
+        </GTDataTable>    
         <button v-if="!addNewSpotList" class="btn btn-sm btn-secondary" @click="addNewSpotList = true">Add New SpotList</button>
         <SpotListDetail v-if="addNewSpotList" mode="Create" @cancel="addNewSpotList = false"/>
     </div>
 </template>
 
 <script setup lang="ts">
-import { SBDataTable, SpotListDetail } from "@/components";
+import { SpotListDetail } from "@/components";
 import type { SpotListDTO } from "@/dto";
 import { useServiceStore } from "@/stores";
+import { GTDataTable } from "@goatm0n/goattools.vue.library.components";
 import { type ComputedRef, computed, ref, type Ref } from "vue";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';

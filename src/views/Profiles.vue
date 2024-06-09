@@ -5,7 +5,7 @@
         </header>
         <SBNavBar :routeNames="['Table', 'List']" :emit="true" @emitRouteName="handleEmitRouteName"/>
         <div v-if="loading"><h2>LOADING</h2></div>
-        <SBDataTable v-if="displayMode==='Table' && !loading" :data="tableData">
+        <GTDataTable v-if="displayMode==='Table' && !loading" :data="tableData">
             <template #row="{user}">
                 <RouterLink v-if="user && admin" :to="{ name: 'Edit Profile', params: { userId: user }}" class="btn btn-primary">
                     Edit
@@ -15,7 +15,7 @@
                     View Profile
                 </RouterLink>
             </template>
-        </SBDataTable>
+        </GTDataTable>
         <ProfileList v-if="displayMode==='List' && !loading" :profiles="profiles" :editMode="admin" />
         <span v-if="!loading && profiles.length === 0"><h3>No Profiles to display</h3></span>
     </div>
@@ -24,8 +24,9 @@
 
 <script setup lang="ts">
 import { type Ref, toRef, ref, computed } from 'vue';
+import { GTDataTable } from '@goatm0n/goattools.vue.library.components';
 import { type ProfileInterface, DEFAULT_PROFILE } from '@/dto';
-import { SBDataTable, SBNavBar, ProfileList, FollowersButton } from '@/components';
+import { SBNavBar, ProfileList, FollowersButton } from '@/components';
 import { useServiceStore } from '@/stores';
 
 const serviceStore = useServiceStore();
