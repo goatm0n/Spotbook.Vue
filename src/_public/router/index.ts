@@ -1,5 +1,6 @@
-import type { RouteRecordRaw } from "vue-router";
-import { AccountDetail, ProfileDetail, SpotMap, LoginForm, } from "@/components";
+import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
+import { PublicLogin } from "../views";
+import { AccountDetail, ProfileDetail, SpotMap } from "@/components";
 import { 
     Accounts, 
     Followers, 
@@ -121,7 +122,7 @@ export const PUBLIC_ROUTES: RouteRecordRaw[] = [
     {
         name: 'Login',
         path: '/login',
-        component: LoginForm,
+        component: PublicLogin,
     },
     {
         name: 'Users',
@@ -158,3 +159,10 @@ export const PUBLIC_ROUTES: RouteRecordRaw[] = [
         props: true,
     },
 ]
+
+const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: PUBLIC_ROUTES
+})
+
+export default router

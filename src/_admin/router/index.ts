@@ -1,30 +1,25 @@
 import type { RouteRecordRaw } from "vue-router";
-import { AdminHome } from "../views";
-import { Accounts, Profiles } from "@/views";
+import { AdminHome, AdminLogin } from "../views";
+import { createRouter, createWebHistory } from 'vue-router';
 
 export const ADMIN_ROUTES: RouteRecordRaw[] = [
     {
-        name: "Admin",
-        path: "/admin",
+        path:'/',
+        name: 'Home',
         component: AdminHome,
+        meta: { showInNavBar: true }
     },
     {
-      name: "AccountsManager",
-      path: "/admin/accounts",
-      component: Accounts,
-      props: { editMode: true }  
-    },
-    {
-        name: "ProfilesManager",
-        path: "/admin/profiles",
-        component: Profiles,
-        props: { admin: true }
-    },
+        path: '/login',
+        name: 'Login',
+        component: AdminLogin, 
+        meta: { showInNavBar: true } 
+    }
 ]
 
-export const ADMIN_NAVBAR_ROUTES_NAMES: string[] = [
-    'Admin',
-    'Home',
-    'AccountsManager',
-    'ProfilesManager',
-]
+const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: ADMIN_ROUTES
+})
+
+export default router

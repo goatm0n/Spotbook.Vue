@@ -5,12 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host localhost --port 5173",
+    "admin": "vite serve ./src/_admin --config admin.vite.config.ts --host localhost --port 5174",
+    "admin:dev": "vite serve ./src/_admin --config admin.vite.config.ts --host localhost --port 5174 --mode development",
+    "public": "vite serve ./src/_public --config public.vite.config.ts --host localhost --port 5175",
+    "public:dev": "vite serve ./src/_public --config public.vite.config.ts --host localhost --port 5175 --mode development",
     "build": "run-p type-check \"build-only {@}\" --",
+    "build:admin": "vue-tsc --noEmit && vite build --config admin.vite.config.ts",
+    "build:public": "vue-tsc --noEmit && vite build --config public.vite.config.ts",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "@goatm0n/goattools.vue.library.components": "0.0.4",
     "@types/geojson": "^7946.0.13",
     "@types/leaflet": "^1.9.8",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
