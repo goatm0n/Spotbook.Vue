@@ -24,7 +24,7 @@ export const PUBLIC_ROUTES: RouteRecordRaw[] = [
         path: '/',
         name: 'Home',
         component: SpotMap,
-        meta: { navbar: true}
+        meta: { GTNavBarItem: true}
     },
     {
         name: "Create Account",

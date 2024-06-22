@@ -7,7 +7,7 @@
                 <button @click="removeSpotListUser(id)" class="btn btn-sm btn-danger">Remove</button>
             </template>
         </SBUserTable>
-        <SBModal :isOpen="openModal" @modal-close="openModal = false">
+        <GTModal :isOpen="openModal" @modal-close="openModal = false">
             <template #header>
                 <h1>Add SpotListUser</h1>
             </template>
@@ -20,12 +20,13 @@
                     </template>
                 </SBUserSearch>
             </template>
-        </SBModal>
+        </GTModal>
     </div>
 </template>
 
 <script setup lang="ts">
-import { SBUserTable, SBModal, SBUserSearch } from '@/components';
+import { GTModal } from '@goatm0n/goattools.vue.library.components';
+import { SBUserTable, SBUserSearch } from '@/components';
 import type { AccountDTO } from '@/dto/Account';
 import type { SpotListUser } from '@/dto/Spot';
 import { useServiceStore } from '@/stores';

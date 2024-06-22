@@ -15,14 +15,14 @@ async function getSpotMapIconList(fetch?:boolean): Promise<SpotMapIcon[]> {
     }
 }
 
-async function getIcons() {
-    let spotMapIcons: SpotMapIcon[] = await getSpotMapIconList();
+async function loadIcons(fetch?:boolean) {
+    let spotMapIcons: SpotMapIcon[] = await getSpotMapIconList(fetch);
 
     return { spotMapIcons }
 }
 
 async function loadStaticData() {
-    let { spotMapIcons } = await getIcons();
+    let { spotMapIcons } = await loadIcons(true);
     sessionStorage.setItem("spotMapIcons", JSON.stringify(spotMapIcons)); 
 }
 

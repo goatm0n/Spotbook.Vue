@@ -30,7 +30,7 @@
             </button>
         </div>
     </div>
-    <SBModal :isOpen="isModalOpen" @modal-close="isModalOpen=false">
+    <GTModal :isOpen="isModalOpen" @modal-close="isModalOpen=false">
         <template #header>Save Spotlist Item</template>
         <template #content>
             <SaveSpotListItem v-if="userId" :user-id="userId" :spot-id="spot.id"/>
@@ -41,10 +41,11 @@
         <template #buttons>
             <button v-if="!addNewSpotList" @click="addNewSpotList=true" class="btn btn-sm btn-secondary m-1">Add New Spotlist</button>
         </template>
-    </SBModal>
+    </GTModal>
 </template>
 
 <script setup lang="ts">
+import { GTModal } from '@goatm0n/goattools.vue.library.components';
 import { 
     SBDetail, 
     FollowersButton, 
@@ -52,12 +53,11 @@ import {
     LikeButton, 
     CoordsButton, 
     FollowButton, 
-    SBModal, 
     SpotListDetail,
     SaveSpotListItem,
 } from '@/components';
 import { ref, toRef, type Ref, type ComputedRef, computed, inject } from 'vue';
-import { DEFAULT_SPOT, type SpotGeometry, type SpotInterface, type SpotProperties, type SpotType } from '@/dto';
+import { DEFAULT_SPOT, type SpotInterface, type SpotType } from '@/dto';
 import { useServiceStore } from '@/stores';
 import { object, string } from 'yup';
 import { useForm } from 'vee-validate';
