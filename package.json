@@ -17,7 +17,7 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
-    "@goatm0n/goattools.vue.library.components": "0.0.6",
+    "@goatm0n/goattools.vue.library.components": "git+https://github.com/goatm0n/GoatTools.Vue.Library.Components.git",
     "@types/geojson": "^7946.0.13",
     "@types/leaflet": "^1.9.8",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
