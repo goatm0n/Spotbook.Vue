@@ -13,7 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@goatm0n/goattools.vue.library.components': 'c:/Users/ethan/GoatTools/GoatTools.Vue.Library.Components',
+      '@goatm0n/goattools.vue.library.components': 'c:/GoatTools/GoatTools.Vue.Library.Components',
     }
   }
 })
